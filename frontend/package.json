@@ -13,6 +13,7 @@
     "leaflet-draw": "^1.0.4",
     "leaflet-side-by-side": "^2.2.0",
     "lucide-react": "^0.513.0",
+    "openseadragon": "^5.0.1",
     "rc-slider": "^11.1.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -29,8 +30,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-    ]
+    "extends": []
   },
   "browserslist": {
     "production": [

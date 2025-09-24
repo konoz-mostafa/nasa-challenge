@@ -4,6 +4,7 @@ import "./App.css";
 import WorldMap from "./components/WorldMap";
 import WelcomePage from "./pages/home/WelcomePage";
 import RegistrationLogin from "./pages/auth/RegistrationLogin";
+import HUbbleExperience from "./pages/Hubble/Hubble";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
         <Route path="/Explora" element={<WelcomePage />} />
         <Route path="/Explora/login" element={<RegistrationLogin />} />
         <Route path="/" element={<WorldMap />} />
-        {/* // <Route path="/Explora/guest" element={<GuestPage />} /> */}
+        // <Route path="/HUbbleExperience" element={<HUbbleExperience />} />
       </Routes>
     </Router>
   );

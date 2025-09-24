@@ -582,8 +582,6 @@ body {
   }
 }
 
-/* Add this to your main CSS file */
-
 .world-view-container {
   width: 100vw;
   height: 100vh;
@@ -679,4 +677,10 @@ body {
   color: red;
   pointer-events: none;
   transform: translate(-50%, -50%);
+}
+
+.experience-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 }
