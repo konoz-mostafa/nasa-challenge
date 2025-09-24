@@ -193,16 +193,6 @@ const CompareTool = () => (
   <div className="tool-interface">
     <h3>Compare Timelines</h3>
     <p>Select two different dates to compare</p>
-    <div className="timeline-selector">
-      <div className="date-selector">
-        <label>From</label>
-        <input type="date" />
-      </div>
-      <div className="date-selector">
-        <label>To</label>
-        <input type="date" />
-      </div>
-    </div>
   </div>
 );
 
