@@ -119,6 +119,7 @@ const LayersTool = () => (
 
 const LabelTool = ({ newLabelLocation }) => {
   const [labelName, setLabelName] = useState("");
+  const [visibility, setVisibility] = useState("private"); // "private" أو "public"
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -130,6 +131,7 @@ const LabelTool = ({ newLabelLocation }) => {
     const labelData = {
       name: labelName,
       location: newLabelLocation,
+      visibility: visibility, // إضافة الخيار هنا
     };
 
     console.log("Sending to backend:", labelData);
@@ -150,17 +152,54 @@ const LabelTool = ({ newLabelLocation }) => {
     <div className="tool-interface">
       <h3>Create a Label</h3>
       <div className="label-preview">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Enter label name"
-            value={labelName}
-            onChange={(e) => setLabelName(e.target.value)}
-          />
-          <button className="submit" type="submit">
-            Save Label
-          </button>
-        </form>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+  <input
+    type="text"
+    placeholder="Enter label name"
+    value={labelName}
+    onChange={(e) => setLabelName(e.target.value)}
+    style={{
+      padding: "6px 10px",
+      borderRadius: "6px",
+      border: "1px solid rgba(0,169,255,0.3)",
+      background: "rgba(0,0,0,0.1)",
+      color: "white",
+    }}
+  />
+  <select
+    value={visibility}
+    onChange={(e) => setVisibility(e.target.value)}
+    style={{
+      padding: "6px 10px",
+      borderRadius: "6px",
+      border: "1px solid rgba(0,169,255,0.3)",
+      background: "rgba(0,0,0,0.1)",
+      color: "white",
+    }}
+  >
+    <option value="private">Only me</option>
+    <option value="public">Everyone</option>
+    <option value="none">none</option>
+  </select>
+  <button
+    type="submit"
+    style={{
+      padding: "8px 12px",
+      borderRadius: "6px",
+      border: "none",
+      background: "linear-gradient(to right, #1e3a8a, #581c87)",
+      color: "white",
+      cursor: "pointer",
+      fontWeight: "bold",
+      transition: "0.3s",
+    }}
+    onMouseOver={(e) => (e.currentTarget.style.opacity = 0.8)}
+    onMouseOut={(e) => (e.currentTarget.style.opacity = 1)}
+  >
+    Save Label
+  </button>
+</form>
+
         {newLabelLocation && (
           <p>
             Selected Location: {newLabelLocation.lat.toFixed(3)},{" "}
@@ -171,6 +210,7 @@ const LabelTool = ({ newLabelLocation }) => {
     </div>
   );
 };
+
 
 const StoryTool = () => (
   <div className="tool-interface">
