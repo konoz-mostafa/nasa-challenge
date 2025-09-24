@@ -323,7 +323,8 @@ const WorldMap = () => {
           left: "10px",
           color: "white",
           fontWeight: "bold",
-          background: "rgba(0,0,0,0.5)",
+          background: "linear-gradient(to bottom right, rgba(30,58,138,0.6), rgba(88,28,135,0.6), rgba(0,0,0,0.6))"
+          ,
           padding: "4px 8px",
           borderRadius: "4px",
           zIndex: 2000,
