@@ -27,11 +27,11 @@
   z-index: 1000;
 }
 
-/* .icon-container {
+.icon-container {
   position: relative;
   display: flex;
   justify-content: center;
-} */
+}
 
 .sidebar-icon {
   width: 55px;
