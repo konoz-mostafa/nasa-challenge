@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import NasaWorldMap from "./NasaWorldMap";
-import ProfileModal from "./ProfileModal";
+import ProfileModal from "../pages/profile/ProfileModal";
 import { User } from "lucide-react";
 import "./WorldMap.css";
 
@@ -28,7 +28,7 @@ const WorldMap = () => {
   );
   const [dateRight, setDateRight] = useState("2020-09-22");
 
-  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     let zoomTimeout;
@@ -123,19 +123,6 @@ const WorldMap = () => {
       {/* NASA Logo */}
       <div className="nasa-logo">NASA</div>
 
-      {/* Profile Button */}
-      <button
-        className="profile-btn"
-        onClick={() => setShowProfileModal(true)}
-      >
-        <User size={20} />
-      </button>
-
-      <ProfileModal
-        open={showProfileModal}
-        onClose={() => setShowProfileModal(false)}
-      />
-
       {/* Grid Overlay */}
       <div className="map-grid" />
 
@@ -152,28 +139,7 @@ const WorldMap = () => {
         </div>
       </div>
 
-      {/* Date Control
-      <div className="date-control">
-        <div
-          className="date-box"
-          onClick={() => setShowDatePicker(!showDatePicker)}
-        >
-          <span className="date-icon">🗓️</span>
-          <span className="date-text">{date}</span>
-        </div>
-
-        {showDatePicker && (
-          <div className="date-picker-popup">
-            <h4>Select Date</h4>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-            <button onClick={() => setShowDatePicker(false)}>Apply</button>
-          </div>
-        )}
-      </div> */}
+      
 
       {/* Zoom Control */}
       {isZooming && (
@@ -208,7 +174,9 @@ const WorldMap = () => {
         newLabelLocation={newLabelLocation}
         date={date} 
         setDate={setDate} 
+        setShowProfile={setShowProfile}
       />
+       <ProfileModal open={showProfile} setOpen={setShowProfile} />
     </div>
   );
 };

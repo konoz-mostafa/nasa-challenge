@@ -18,10 +18,10 @@
   backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 169, 255, 0.3);
   border-radius: 30px;
-  padding: 15px 10px;
+  padding: 12px 10px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37),
     0 0 20px 5px rgba(128, 33, 252, 0.5);
   z-index: 1000;

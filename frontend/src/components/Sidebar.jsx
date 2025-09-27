@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   FaLayerGroup,
@@ -7,9 +8,10 @@ import {
   FaCalendarAlt,
   FaTimes,
 } from "react-icons/fa";
+import { UserCircle } from "lucide-react"; 
 import "./Sidebar.css"; 
 
-const Sidebar = ({ activeTool, setActiveTool, newLabelLocation, date, setDate }) => {
+const Sidebar = ({ activeTool, setActiveTool, newLabelLocation, date, setDate, setShowProfile }) => {
   const [hoveredIcon, setHoveredIcon] = useState(null);
 
   const tools = [
@@ -46,9 +48,20 @@ const Sidebar = ({ activeTool, setActiveTool, newLabelLocation, date, setDate })
       name: "Select Date",
       magicSentence: "Pick a date to view the map for that day!",
     },
+    {
+      id: "profile",
+      icon: <UserCircle size={24} />, 
+      name: "Profile",
+      magicSentence: "View your profile info!",
+    },
   ];
 
   const handleIconClick = (toolId) => {
+    if (toolId === "profile") {
+      setShowProfile(true); 
+      return;
+    }
+  
     if (activeTool === toolId) {
       setActiveTool(null);
     } else {
@@ -108,41 +121,6 @@ const Sidebar = ({ activeTool, setActiveTool, newLabelLocation, date, setDate })
   );
 };
 
-// // داخل Sidebar
-// const LayersTool = () => {
-//   const [activeLayers, setActiveLayers] = useState({
-//     "True Color (Day)": true,
-//     "Night Lights (2012)": false,
-//     "Fires and Thermal Anomalies": false,
-//     "Aerosol/Haze": false,
-//     "Soil Moisture": false,
-//   });
-
-//   const toggleLayer = (layer) => {
-//     setActiveLayers((prev) => ({
-//       ...prev,
-//       [layer]: !prev[layer],
-//     }));
-//   };
-
-//   return (
-//     <div className="tool-interface">
-//       <h3>Map Layers</h3>
-//       <div className="layer-list">
-//         {Object.keys(activeLayers).map((layer) => (
-//           <label key={layer} className="layer-item">
-//             <input
-//               type="checkbox"
-//               checked={activeLayers[layer]}
-//               onChange={() => toggleLayer(layer)}
-//             />
-//             {layer}
-//           </label>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
 // Tool Components
 const LayersTool = () => (
   <div className="tool-interface">
@@ -302,19 +280,20 @@ const DateTool = ({ date, setDate }) => (
 export default Sidebar;
 
 
-
 // import React, { useState } from "react";
 // import {
 //   FaLayerGroup,
 //   FaMapMarkerAlt,
 //   FaBookOpen,
 //   FaClone,
+//   FaCalendarAlt,
 //   FaTimes,
 // } from "react-icons/fa";
 // import "./Sidebar.css"; 
 
-// const Sidebar = ({ activeTool, setActiveTool, newLabelLocation }) => {
+// const Sidebar = ({ activeTool, setActiveTool, newLabelLocation, date, setDate }) => {
 //   const [hoveredIcon, setHoveredIcon] = useState(null);
+  
 
 //   const tools = [
 //     {
@@ -343,6 +322,12 @@ export default Sidebar;
 //       name: "Compare",
 //       magicSentence:
 //         "See how our planet transforms over time with just a swipe!",
+//     },
+//     {
+//       id: "date",
+//       icon: <FaCalendarAlt size={24} />,
+//       name: "Select Date",
+//       magicSentence: "Pick a date to view the map for that day!",
 //     },
 //   ];
 
@@ -383,7 +368,7 @@ export default Sidebar;
 //         ))}
 //       </nav>
 
-//       {/* Smart Drawer that appears when a tool is active */}
+//       {/* Smart Drawer */}
 //       {activeTool && (
 //         <div className="smart-drawer">
 //           <div className="drawer-content">
@@ -393,6 +378,9 @@ export default Sidebar;
 //             )}
 //             {activeTool === "story" && <StoryTool />}
 //             {activeTool === "compare" && <CompareTool />}
+//             {activeTool === "date" && (
+//               <DateTool date={date} setDate={setDate} />
+//             )}
 //           </div>
 //           <button className="close-drawer" onClick={() => setActiveTool(null)}>
 //             <FaTimes />
@@ -403,6 +391,41 @@ export default Sidebar;
 //   );
 // };
 
+// // // داخل Sidebar
+// // const LayersTool = () => {
+// //   const [activeLayers, setActiveLayers] = useState({
+// //     "True Color (Day)": true,
+// //     "Night Lights (2012)": false,
+// //     "Fires and Thermal Anomalies": false,
+// //     "Aerosol/Haze": false,
+// //     "Soil Moisture": false,
+// //   });
+
+// //   const toggleLayer = (layer) => {
+// //     setActiveLayers((prev) => ({
+// //       ...prev,
+// //       [layer]: !prev[layer],
+// //     }));
+// //   };
+
+// //   return (
+// //     <div className="tool-interface">
+// //       <h3>Map Layers</h3>
+// //       <div className="layer-list">
+// //         {Object.keys(activeLayers).map((layer) => (
+// //           <label key={layer} className="layer-item">
+// //             <input
+// //               type="checkbox"
+// //               checked={activeLayers[layer]}
+// //               onChange={() => toggleLayer(layer)}
+// //             />
+// //             {layer}
+// //           </label>
+// //         ))}
+// //       </div>
+// //     </div>
+// //   );
+// // };
 // // Tool Components
 // const LayersTool = () => (
 //   <div className="tool-interface">
@@ -422,7 +445,7 @@ export default Sidebar;
 
 // const LabelTool = ({ newLabelLocation }) => {
 //   const [labelName, setLabelName] = useState("");
-//   const [visibility, setVisibility] = useState("private"); 
+//   const [visibility, setVisibility] = useState("private");
 
 //   const handleSubmit = (event) => {
 //     event.preventDefault();
@@ -434,7 +457,7 @@ export default Sidebar;
 //     const labelData = {
 //       name: labelName,
 //       location: newLabelLocation,
-//       visibility: visibility, 
+//       visibility: visibility,
 //     };
 
 //     console.log("Sending to backend:", labelData);
@@ -455,53 +478,56 @@ export default Sidebar;
 //     <div className="tool-interface">
 //       <h3>Create a Label</h3>
 //       <div className="label-preview">
-//       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-//   <input
-//     type="text"
-//     placeholder="Enter label name"
-//     value={labelName}
-//     onChange={(e) => setLabelName(e.target.value)}
-//     style={{
-//       padding: "6px 10px",
-//       borderRadius: "6px",
-//       border: "1px solid rgba(0,169,255,0.3)",
-//       background: "rgba(0,0,0,0.1)",
-//       color: "white",
-//     }}
-//   />
-//   <select
-//     value={visibility}
-//     onChange={(e) => setVisibility(e.target.value)}
-//     style={{
-//       padding: "6px 10px",
-//       borderRadius: "6px",
-//       border: "1px solid rgba(0,169,255,0.3)",
-//       background: "rgba(0,0,0,0.1)",
-//       color: "white",
-//     }}
-//   >
-//     <option value="private">Only me</option>
-//     <option value="public">Everyone</option>
-//     <option value="none">none</option>
-//   </select>
-//   <button
-//     type="submit"
-//     style={{
-//       padding: "8px 12px",
-//       borderRadius: "6px",
-//       border: "none",
-//       background: "linear-gradient(to right, #1e3a8a, #581c87)",
-//       color: "white",
-//       cursor: "pointer",
-//       fontWeight: "bold",
-//       transition: "0.3s",
-//     }}
-//     onMouseOver={(e) => (e.currentTarget.style.opacity = 0.8)}
-//     onMouseOut={(e) => (e.currentTarget.style.opacity = 1)}
-//   >
-//     Save Label
-//   </button>
-// </form>
+//         <form
+//           onSubmit={handleSubmit}
+//           style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+//         >
+//           <input
+//             type="text"
+//             placeholder="Enter label name"
+//             value={labelName}
+//             onChange={(e) => setLabelName(e.target.value)}
+//             style={{
+//               padding: "6px 10px",
+//               borderRadius: "6px",
+//               border: "1px solid rgba(0,169,255,0.3)",
+//               background: "rgba(0,0,0,0.1)",
+//               color: "white",
+//             }}
+//           />
+//           <select
+//             value={visibility}
+//             onChange={(e) => setVisibility(e.target.value)}
+//             style={{
+//               padding: "6px 10px",
+//               borderRadius: "6px",
+//               border: "1px solid rgba(0,169,255,0.3)",
+//               background: "rgba(0,0,0,0.1)",
+//               color: "white",
+//             }}
+//           >
+//             <option value="private">Only me</option>
+//             <option value="public">Everyone</option>
+//             <option value="none">none</option>
+//           </select>
+//           <button
+//             type="submit"
+//             style={{
+//               padding: "8px 12px",
+//               borderRadius: "6px",
+//               border: "none",
+//               background: "linear-gradient(to right, #1e3a8a, #581c87)",
+//               color: "white",
+//               cursor: "pointer",
+//               fontWeight: "bold",
+//               transition: "0.3s",
+//             }}
+//             onMouseOver={(e) => (e.currentTarget.style.opacity = 0.8)}
+//             onMouseOut={(e) => (e.currentTarget.style.opacity = 1)}
+//           >
+//             Save Label
+//           </button>
+//         </form>
 
 //         {newLabelLocation && (
 //           <p>
@@ -513,7 +539,6 @@ export default Sidebar;
 //     </div>
 //   );
 // };
-
 
 // const StoryTool = () => (
 //   <div className="tool-interface">
@@ -539,4 +564,23 @@ export default Sidebar;
 //   </div>
 // );
 
+// const DateTool = ({ date, setDate }) => (
+//   <div className="tool-interface">
+//     <h3>Select Date</h3>
+//     <input
+//       type="date"
+//       value={date}
+//       onChange={(e) => setDate(e.target.value)}
+//       style={{
+//         padding: "6px 10px",
+//         borderRadius: "6px",
+//         border: "1px solid rgba(0,169,255,0.3)",
+//         background: "rgba(0,0,0,0.1)",
+//         color: "white",
+//       }}
+//     />
+//   </div>
+// );
+
 // export default Sidebar;
+
