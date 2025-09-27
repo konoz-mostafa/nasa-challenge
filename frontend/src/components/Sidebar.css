@@ -23,7 +23,7 @@
   flex-direction: column;
   gap: 20px;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37),
-    0 0 20px 5px rgba(252, 61, 33, 0.2);
+    0 0 20px 5px rgba(128, 33, 252, 0.5);
   z-index: 1000;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .sidebar-icon:hover {
-  background: linear-gradient(135deg, #0b3d91 0%, #fc3d21 100%);
+  background: linear-gradient(135deg, #0b3d91 0%, #6e21fc 100%);
   color: #ffffff;
   transform: scale(1.15);
   box-shadow: 0 0 15px 3px rgba(0, 169, 255, 0.6),
@@ -56,9 +56,9 @@
 }
 
 .sidebar-icon.active {
-  background: linear-gradient(135deg, #fc3d21 0%, #0b3d91 100%);
+  background: linear-gradient(135deg, #6e21fc 0%, #0b3d91 100%);
   color: #ffffff;
-  box-shadow: 0 0 20px 5px rgba(252, 61, 33, 0.5),
+  box-shadow: 0 0 20px 5px rgba(128, 33, 252, 0.5),
     inset 0 0 15px 3px rgba(255, 255, 255, 0.4);
 }
 
@@ -75,7 +75,7 @@
   border: 1px solid rgba(0, 169, 255, 0.4);
   border-radius: 15px;
   box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.5),
-    0 0 15px 3px rgba(252, 61, 33, 0.3);
+    0 0 15px 3px rgba(128, 33, 252, 0.5);
   width: 280px;
   opacity: 0;
   transform: translateY(-50%) translateX(10px);
@@ -122,7 +122,7 @@
   letter-spacing: 1px;
   display: inline-block;
   padding: 3px 8px;
-  background: rgba(252, 61, 33, 0.2);
+  background: rgba(128, 33, 252, 0.5);
   border-radius: 4px;
 }
 
@@ -330,7 +330,7 @@
   flex-direction: column;
   gap: 20px;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37),
-    0 0 20px 5px rgba(252, 61, 33, 0.2);
+    0 0 20px 5px rgba(128, 33, 252, 0.5);
   z-index: 1000;
 }
 
@@ -373,7 +373,7 @@
     var(--nasa-blue) 100%
   );
   color: var(--text-primary);
-  box-shadow: 0 0 20px 5px rgba(252, 61, 33, 0.5),
+  box-shadow: 0 0 20px 5px rgba(128, 33, 252, 0.5),
     inset 0 0 15px 3px rgba(255, 255, 255, 0.4);
 }
 
@@ -390,7 +390,7 @@
   border: 1px solid rgba(0, 169, 255, 0.4);
   border-radius: 15px;
   box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.5),
-    0 0 15px 3px rgba(252, 61, 33, 0.3);
+    0 0 15px 3px rgba(128, 33, 252, 0.5);
   width: 280px;
   opacity: 0;
   transform: translateY(-50%) translateX(10px);
@@ -437,7 +437,7 @@
   letter-spacing: 1px;
   display: inline-block;
   padding: 3px 8px;
-  background: rgba(252, 61, 33, 0.2);
+  background: rgba(128, 33, 252, 0.5);
   border-radius: 4px;
 }
 
