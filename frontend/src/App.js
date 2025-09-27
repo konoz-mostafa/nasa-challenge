@@ -13,8 +13,12 @@ function App() {
       <Routes>
         <Route path="/Explora" element={<WelcomePage />} />
         <Route path="/Explora/login" element={<RegistrationLogin />} />
+<<<<<<< HEAD
         <Route path="/" element={<WorldMap />} />
         // <Route path="/HUbbleExperience" element={<HUbbleExperience />} />
+=======
+        <Route path="/Explora/home" element={<WorldMap />} />
+>>>>>>> e5d0ef8 (Update ProfileModal, Sidebar, WorldMap, and styles)
       </Routes>
     </Router>
   );

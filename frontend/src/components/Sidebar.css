@@ -554,3 +554,66 @@
   height: 100vh;
   overflow: hidden;
 }
+
+.layer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* Compact LayersControl aligned with sidebar */
+.leaflet-control-layers {
+  background: #1f1f2e; 
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #f5f5f5;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #3b82f6;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* Labels */
+.leaflet-control-layers-base label,
+.leaflet-control-layers-overlays label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+/* Hover effect */
+.leaflet-control-layers label:hover {
+  background: rgba(59, 130, 246, 0.25);
+}
+
+/* Checkboxes and radios */
+.leaflet-control-layers input[type="checkbox"],
+.leaflet-control-layers input[type="radio"] {
+  accent-color: #3b82f6;
+  width: 14px;
+  height: 14px;
+}
+
+/* Scrollbar */
+.leaflet-control-layers::-webkit-scrollbar {
+  width: 5px;
+}
+
+.leaflet-control-layers::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 3px;
+}
