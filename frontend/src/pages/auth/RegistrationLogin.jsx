@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Telescope, UserSquare, Mail, Lock, Eye, EyeOff, Badge } from 'lucide-react';
+import { Telescope, UserSquare, Mail, Lock, Eye, EyeOff, Badge ,Calendar} from 'lucide-react';
 import './RegistrationLogin.css';
 import Background from '../../Background.png';
 
@@ -13,6 +13,7 @@ const RegistrationLogin = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     age: '',
+    experience: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -44,6 +45,9 @@ const RegistrationLogin = () => {
       }
       if (!formData.age || formData.age < 1 || formData.age > 120) {
         newErrors.age = 'Please enter a valid age';
+      }
+      if (!formData.experience) {
+        newErrors.experience = 'Please select your experience';
       }
       if (formData.password.length < 6) {
         newErrors.password = 'Password must be at least 6 characters';
@@ -80,6 +84,7 @@ const RegistrationLogin = () => {
         body = {
           fullName: formData.fullName,
           age: formData.age,
+          experience: formData.experience,
           email: formData.email,
           password: formData.password,
           wantsResearcher: formData.wantsResearcher
@@ -160,21 +165,43 @@ const RegistrationLogin = () => {
             </div>
           )}
 
+{currentView === 'register' && (
+  <div className="rl-field">
+    <label className="rl-label">
+      <Calendar className="rl-label-icon" /> Age
+    </label>
+    <input
+      type="number"
+      value={formData.age}
+      onChange={(e) => handleInputChange('age', parseInt(e.target.value) || '')}
+      className={`rl-input ${errors.age ? 'rl-error' : ''}`}
+      placeholder="Enter your age"
+      min="1"
+      max="120"
+    />
+    {errors.age && <p className="rl-error-text">{errors.age}</p>}
+  </div>
+)}
+
           {currentView === 'register' && (
-            <div className="rl-field">
-              <label className="rl-label">Age </label>
-              <input
-                type="number"
-                value={formData.age}
-                onChange={(e) => handleInputChange('age', parseInt(e.target.value) || '')}
-                className={`rl-input ${errors.age ? 'rl-error' : ''}`}
-                placeholder="Enter your age"
-                min="1"
-                max="120"
-              />
-              {errors.age && <p className="rl-error-text">{errors.age}</p>}
-            </div>
-          )}
+  <div className="rl-field">
+    <label className="rl-label">
+      <Badge className="rl-label-icon" /> Experience
+    </label>
+    <select
+      value={formData.experience}
+      onChange={(e) => handleInputChange('experience', e.target.value)}
+      className={`rl-input ${errors.experience ? 'rl-error' : ''}`}
+    >
+      <option value="">-- Choose an option --</option>
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
+    </select>
+    {errors.experience && <p className="rl-error-text">{errors.experience}</p>}
+  </div>
+)}
+
 
           <div className="rl-field">
             <label className="rl-label">

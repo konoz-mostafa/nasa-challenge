@@ -214,3 +214,46 @@
   }
 }
 
+.guest-experience-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.guest-experience-form label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.guest-experience-form select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #4b5563;
+  background-color: #1f2937;
+  color: #fff;
+  font-size: 15px;
+  width: 100%;
+  max-width: 250px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.guest-experience-form select:hover {
+  background-color: #374151;
+  transform: scale(1.03);
+}
+
+.guest-experience-form select:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.4);
+}
+
+.guest-experience-form .btn-continue,
+.guest-experience-form .btn-cancel {
+  width: 100%;
+  max-width: 200px;
+}
