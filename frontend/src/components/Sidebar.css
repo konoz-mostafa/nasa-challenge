@@ -617,3 +617,56 @@
   background: #3b82f6;
   border-radius: 3px;
 }
+
+
+
+/* Add this to your existing Sidebar.css file */
+
+/* Game Icon Special Styling */
+.game-icon {
+  position: relative;
+  animation: gameGlow 2s ease-in-out infinite;
+}
+
+.game-icon::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(45deg, #00a9ff, #581c87, #00a9ff);
+  background-size: 400% 400%;
+  border-radius: 50%;
+  opacity: 0;
+  animation: gameIconPulse 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes gameGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(0, 169, 255, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(88, 28, 135, 0.8));
+  }
+}
+
+@keyframes gameIconPulse {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+.sidebar-icon.game-icon:hover {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.sidebar-icon.game-icon:hover::before {
+  animation: gameIconPulse 1s ease-in-out infinite;
+}

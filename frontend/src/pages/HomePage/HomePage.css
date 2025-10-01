@@ -1,0 +1,397 @@
+/* HomePage.css */
+
+/* Container and Background */
+.homepage-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #000000;
+  overflow: hidden;
+}
+
+/* Starfield */
+.starfield {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.6;
+}
+
+/* Gradient Overlay */
+.gradient-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  z-index: 2;
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.3), transparent 70%);
+  transition: transform 0.3s ease-out;
+}
+
+/* Main Content */
+.main-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+/* Header Section */
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  transform: translateZ(50px);
+  animation: fadeInDown 1s ease-out;
+}
+
+.rocket-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.rocket-icon {
+  width: 4rem;
+  height: 4rem;
+  color: #60a5fa;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.main-title {
+  font-size: 6rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+}
+
+.subtitle {
+  display: block;
+  font-size: 3rem;
+  margin-top: 0.5rem;
+  background: linear-gradient(to right, #60a5fa, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.description {
+  font-size: 1.25rem;
+  color: #d1d5db;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+/* Cards Container */
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 80rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Map Card */
+.map-card {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+}
+
+/* Card Border */
+.card-border {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  padding: 1px;
+}
+
+.earth-border {
+  background: linear-gradient(to bottom right, #1e3a8a, #1e40af, #0e7490);
+}
+
+.moon-border {
+  background: linear-gradient(to bottom right, #374151, #4b5563, #581c87);
+}
+
+.card-hover-effect {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.earth-border .card-hover-effect {
+  background: linear-gradient(to right, rgba(96, 165, 250, 1), rgba(34, 211, 238, 1));
+}
+
+.moon-border .card-hover-effect {
+  background: linear-gradient(to right, rgba(168, 85, 247, 1), rgba(244, 114, 182, 1));
+}
+
+.map-card.hovered .card-hover-effect {
+  opacity: 0.2;
+}
+
+/* Card Content */
+.card-content {
+  position: relative;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  padding: 2rem;
+  height: 100%;
+}
+
+.card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+/* Icon Container */
+.icon-container {
+  position: relative;
+}
+
+.planet-icon {
+  width: 6rem;
+  height: 6rem;
+  z-index: 2;
+  position: relative;
+}
+
+.earth-icon {
+  color: #60a5fa;
+}
+
+.moon-icon {
+  color: #a78bfa;
+}
+
+.icon-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  opacity: 0.5;
+  filter: blur(2rem);
+}
+
+.earth-glow {
+  background: #60a5fa;
+}
+
+.moon-glow {
+  background: #a78bfa;
+}
+
+/* Card Text */
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-title {
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: white;
+}
+
+.card-description {
+  color: #d1d5db;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+/* Launch Button */
+.launch-button {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  transition: transform 0.3s;
+}
+
+.earth-button {
+  color: #60a5fa;
+}
+
+.moon-button {
+  color: #a78bfa;
+}
+
+.map-card.hovered .launch-button {
+  transform: translateX(0.5rem);
+}
+
+.chevron-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.5rem;
+}
+
+/* Orbital Ring */
+.orbital-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+.earth-ring {
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(59, 130, 246, 0.5) 90deg, transparent 180deg);
+  animation: rotate 3s linear infinite;
+}
+
+.moon-ring {
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(168, 85, 247, 0.5) 90deg, transparent 180deg);
+  animation: rotateReverse 3s linear infinite;
+}
+
+.map-card.hovered .orbital-ring {
+  opacity: 1;
+}
+
+/* Footer */
+.footer {
+  margin-top: 4rem;
+  text-align: center;
+  transform: translateZ(30px);
+  animation: fadeInUp 1s ease-out 0.5s backwards;
+}
+
+.footer-text {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Animations */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateZ(0);
+  }
+  50% {
+    transform: translateY(-20px) translateZ(10px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateReverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) translateZ(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(50px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) translateZ(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(30px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 3rem;
+  }
+  
+  .subtitle {
+    font-size: 2rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+  }
+  
+  .planet-icon {
+    width: 5rem;
+    height: 5rem;
+  }
+  
+  .card-title {
+    font-size: 1.875rem;
+  }
+  
+  .card-description {
+    font-size: 1rem;
+  }
+}
