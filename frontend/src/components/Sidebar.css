@@ -572,7 +572,7 @@
 
 /* Compact LayersControl aligned with sidebar */
 .leaflet-control-layers {
-  background: #1f1f2e; 
+  background: #1f1f2e;
   padding: 6px 8px;
   border-radius: 8px;
   font-size: 12px;
@@ -580,7 +580,7 @@
   max-height: 180px;
   overflow-y: auto;
   border: 1px solid #3b82f6;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* Labels */
@@ -618,8 +618,6 @@
   border-radius: 3px;
 }
 
-
-
 /* Add this to your existing Sidebar.css file */
 
 /* Game Icon Special Styling */
@@ -629,7 +627,7 @@
 }
 
 .game-icon::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -5px;
   left: -5px;
@@ -644,7 +642,8 @@
 }
 
 @keyframes gameGlow {
-  0%, 100% {
+  0%,
+  100% {
     filter: drop-shadow(0 0 5px rgba(0, 169, 255, 0.5));
   }
   50% {
@@ -653,7 +652,8 @@
 }
 
 @keyframes gameIconPulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0;
     transform: scale(0.8);
   }
@@ -669,4 +669,23 @@
 
 .sidebar-icon.game-icon:hover::before {
   animation: gameIconPulse 1s ease-in-out infinite;
+}
+
+/* تخصيص الاسكرولار في layers */
+.tool-interface::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tool-interface::-webkit-scrollbar-track {
+  background: rgba(31, 41, 55, 0.8); /* غامق */
+  border-radius: 8px;
+}
+
+.tool-interface::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #2563eb, #7c3aed);
+  border-radius: 8px;
+}
+
+.tool-interface::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #1d4ed8, #6d28d9);
 }
