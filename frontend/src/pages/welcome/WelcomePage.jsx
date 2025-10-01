@@ -146,7 +146,8 @@ const WelcomePage = () => {
       localStorage.setItem("guestId", data.guestId);
       localStorage.setItem("guestExperience", data.experience);
   
-      navigate("/Explora/guest");
+      navigate("/Explora/home");
+
     } catch (error) {
       console.error(error);
       alert("Could not create guest. Please try again.");
@@ -161,7 +162,7 @@ const WelcomePage = () => {
       <div className="welcome-box">
         <div className="welcome-header">
           <Telescope className="welcome-icon" />
-          <h1 className="welcome-title">NASA Eyes</h1>
+          <h1 className="welcome-title">Cosmic Canvas</h1>
           <p className="welcome-subtitle">
             Explore the universe through your eyes. Contribute, learn, and be part of discovery.
           </p>

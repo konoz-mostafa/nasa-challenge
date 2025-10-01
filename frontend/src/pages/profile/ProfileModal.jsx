@@ -188,6 +188,7 @@ const ProfileModal = ({ open, setOpen, token }) => {
         </div>
 
         <button className="logout-btn" onClick={() => alert("Logout clicked")}>Logout</button>
+        
       </div>
 
       <BadgeModal badge={newBadge} onClose={() => setNewBadge(null)} />
