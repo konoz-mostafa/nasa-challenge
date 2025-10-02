@@ -2,7 +2,7 @@
 // import { useNavigate } from 'react-router-dom';
 // import { Telescope, UserSquare, Mail, Lock, Eye, EyeOff, Badge, Calendar } from 'lucide-react';
 // import './RegistrationLogin.css';
-// import logbg from './logbg.png';
+// import logved from './logved.mp4';
 
 // const API_BASE = "http://localhost:5000/api/v1/auth"; 
 
@@ -114,8 +114,7 @@
 
 //       if (currentView === 'login') {
 //         localStorage.setItem("token", data.token);
-//         localStorage.setItem("user", JSON.stringify(data.user));
-//         alert(`Login successful! Welcome back ${data.user.fullName || ''}`);
+//         alert(data.message || "Login successful!");
 //         navigate("/Explora/home"); 
 //       }
 
@@ -141,7 +140,14 @@
 //   };
 
 //   return (
-//     <div className="rl-container" style={{ backgroundImage: `url(${logbg})` }}>
+//     <div className="rl-container">
+//       {/* الفيديو الخلفية */}
+//       <video autoPlay loop muted playsInline className="rl-video-bg">
+//         <source src={logved} type="video/mp4" />
+//       </video>
+
+//       <div className="rl-overlay"></div>
+
 //       <div className="rl-box">
 //         {/* Header */}
 //         <div className="rl-header">
@@ -314,6 +320,7 @@ import { useNavigate } from 'react-router-dom';
 import { Telescope, UserSquare, Mail, Lock, Eye, EyeOff, Badge, Calendar } from 'lucide-react';
 import './RegistrationLogin.css';
 import logved from './logved.mp4';
+import logbg from './logbg.png'; 
 
 const API_BASE = "http://localhost:5000/api/v1/auth"; 
 
@@ -325,16 +332,18 @@ const RegistrationLogin = () => {
 
   const [formData, setFormData] = useState({
     fullName: '',
-    age: '',
     experience: '',
     email: '',
     password: '',
     confirmPassword: '',
-    wantsResearcher: false
   });
 
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  // للتحقق
+  const [verifyOpen, setVerifyOpen] = useState(false);
+  const [verifyCode, setVerifyCode] = useState('');
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -355,9 +364,6 @@ const RegistrationLogin = () => {
     if (currentView === 'register') {
       if (!formData.fullName.trim()) {
         newErrors.fullName = 'Full name is required';
-      }
-      if (!formData.age || formData.age < 1 || formData.age > 120) {
-        newErrors.age = 'Please enter a valid age';
       }
       if (!formData.experience) {
         newErrors.experience = 'Please select your experience';
@@ -395,38 +401,33 @@ const RegistrationLogin = () => {
       if (currentView === 'register') {
         url = `${API_BASE}/register`;
         body = {
-          fullName: formData.fullName,
-          age: formData.age,
+          name: formData.fullName,
           experience: formData.experience,
           email: formData.email,
           password: formData.password,
-          wantsResearcher: formData.wantsResearcher
         };
       }
 
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        credentials: 'include'
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Request failed');
-      }
 
       const data = await response.json();
 
+      if (!response.ok) throw new Error(data.message || 'Request failed');
+
       if (currentView === 'register') {
-        alert(`Registration successful! Welcome ${data.user.fullName || ''}`);
-        setCurrentView('login'); 
+        
+        setVerifyOpen(true);
         return;
       }
 
       if (currentView === 'login') {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        alert(`Login successful! Welcome back ${data.user.fullName || ''}`);
+        alert(data.message || "Login successful!");
         navigate("/Explora/home"); 
       }
 
@@ -438,25 +439,75 @@ const RegistrationLogin = () => {
     }
   };
 
+  const handleVerify = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/verify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: verifyCode, email: formData.email }),
+        credentials: "include"
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("Email verified successfully!");
+        setVerifyOpen(false);
+        setCurrentView("login");
+      } else {
+        alert(data.message || "Invalid code");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleResend = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/resend-code`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email })
+      });
+
+      const data = await res.json();
+      alert(data.message || "Code resent!");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const switchView = () => {
     setCurrentView(currentView === 'login' ? 'register' : 'login');
     setErrors({});
     setFormData({
       fullName: '',
-      age: '',
+      experience: '',
       email: '',
       password: '',
       confirmPassword: '',
-      wantsResearcher: false
     });
   };
 
   return (
     <div className="rl-container">
-      {/* الفيديو الخلفية */}
-      <video autoPlay loop muted playsInline className="rl-video-bg">
+      {/* <video autoPlay loop muted playsInline className="rl-video-bg">
         <source src={logved} type="video/mp4" />
-      </video>
+      </video> */}
+      <div
+  className="rl-bg-image"
+  style={{
+    backgroundImage: `url(${logbg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: -2,
+  }}
+></div>
+
 
       <div className="rl-overlay"></div>
 
@@ -475,62 +526,38 @@ const RegistrationLogin = () => {
         {/* Form */}
         <div className="rl-form">
           {currentView === 'register' && (
-            <div className="rl-field">
-              <label className="rl-label">
-                <UserSquare className="rl-label-icon" /> Full Name 
-              </label>
-              <input
-                type="text"
-                value={formData.fullName}
-                onChange={(e) => handleInputChange('fullName', e.target.value)}
-                className={`rl-input ${errors.fullName ? 'rl-error' : ''}`}
-                placeholder="Enter your full name"
-              />
-              {errors.fullName && <p className="rl-error-text">{errors.fullName}</p>}
-            </div>
-          )}
+            <>
+              <div className="rl-field">
+                <label className="rl-label"><UserSquare className="rl-label-icon" /> Full Name</label>
+                <input
+                  type="text"
+                  value={formData.fullName}
+                  onChange={(e) => handleInputChange('fullName', e.target.value)}
+                  className={`rl-input ${errors.fullName ? 'rl-error' : ''}`}
+                  placeholder="Enter your full name"
+                />
+                {errors.fullName && <p className="rl-error-text">{errors.fullName}</p>}
+              </div>
 
-          {currentView === 'register' && (
-            <div className="rl-field">
-              <label className="rl-label">
-                <Calendar className="rl-label-icon" /> Age
-              </label>
-              <input
-                type="number"
-                value={formData.age}
-                onChange={(e) => handleInputChange('age', parseInt(e.target.value) || '')}
-                className={`rl-input ${errors.age ? 'rl-error' : ''}`}
-                placeholder="Enter your age"
-                min="1"
-                max="120"
-              />
-              {errors.age && <p className="rl-error-text">{errors.age}</p>}
-            </div>
-          )}
-
-          {currentView === 'register' && (
-            <div className="rl-field">
-              <label className="rl-label">
-                <Badge className="rl-label-icon" /> Experience
-              </label>
-              <select
-                value={formData.experience}
-                onChange={(e) => handleInputChange('experience', e.target.value)}
-                className={`rl-input ${errors.experience ? 'rl-error' : ''}`}
-              >
-                <option value="">-- Choose an option --</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-              </select>
-              {errors.experience && <p className="rl-error-text">{errors.experience}</p>}
-            </div>
+              <div className="rl-field">
+                <label className="rl-label"><Badge className="rl-label-icon" /> Experience</label>
+                <select
+                  value={formData.experience}
+                  onChange={(e) => handleInputChange('experience', e.target.value)}
+                  className={`rl-input ${errors.experience ? 'rl-error' : ''}`}
+                >
+                  <option value="">-- Choose an option --</option>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                </select>
+                {errors.experience && <p className="rl-error-text">{errors.experience}</p>}
+              </div>
+            </>
           )}
 
           <div className="rl-field">
-            <label className="rl-label">
-              <Mail className="rl-label-icon" /> Email 
-            </label>
+            <label className="rl-label"><Mail className="rl-label-icon" /> Email</label>
             <input
               type="email"
               value={formData.email}
@@ -542,9 +569,7 @@ const RegistrationLogin = () => {
           </div>
 
           <div className="rl-field">
-            <label className="rl-label">
-              <Lock className="rl-label-icon" /> Password 
-            </label>
+            <label className="rl-label"><Lock className="rl-label-icon" /> Password</label>
             <div className="rl-input-group">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -553,11 +578,7 @@ const RegistrationLogin = () => {
                 className={`rl-input ${errors.password ? 'rl-error' : ''}`}
                 placeholder={currentView === 'register' ? 'Create a password (min 6 characters)' : 'Enter your password'}
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="rl-eye"
-              >
+              <button type="button" onClick={() => setShowPassword(!showPassword)} className="rl-eye">
                 {showPassword ? <EyeOff /> : <Eye />}
               </button>
             </div>
@@ -566,9 +587,7 @@ const RegistrationLogin = () => {
 
           {currentView === 'register' && (
             <div className="rl-field">
-              <label className="rl-label">
-                <Lock className="rl-label-icon" /> Confirm Password 
-              </label>
+              <label className="rl-label"><Lock className="rl-label-icon" /> Confirm Password</label>
               <div className="rl-input-group">
                 <input
                   type={showConfirmPassword ? 'text' : 'password'}
@@ -577,29 +596,11 @@ const RegistrationLogin = () => {
                   className={`rl-input ${errors.confirmPassword ? 'rl-error' : ''}`}
                   placeholder="Confirm your password"
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="rl-eye"
-                >
+                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="rl-eye">
                   {showConfirmPassword ? <EyeOff /> : <Eye />}
                 </button>
               </div>
               {errors.confirmPassword && <p className="rl-error-text">{errors.confirmPassword}</p>}
-            </div>
-          )}
-
-          {currentView === 'register' && (
-            <div className="rl-checkbox">
-              <input
-                type="checkbox"
-                id="researcher"
-                checked={formData.wantsResearcher}
-                onChange={(e) => handleInputChange('wantsResearcher', e.target.checked)}
-              />
-              <label htmlFor="researcher" className="rl-label">
-                 Register as Researcher (requires qualification test)
-              </label>
             </div>
           )}
 
@@ -621,6 +622,28 @@ const RegistrationLogin = () => {
           <p>Secure • Private • Space-Focused</p>
         </div>
       </div>
+
+      
+      {verifyOpen && (
+        <div className="rl-modal">
+          <div className="rl-modal-content">
+            <h2>Email Verification</h2>
+            <p>Enter the 6-digit code sent to your email</p>
+            <input
+              type="text"
+              value={verifyCode}
+              onChange={(e) => setVerifyCode(e.target.value)}
+              maxLength="6"
+              className="rl-input"
+            />
+            <div className="rl-modal-actions">
+              <button onClick={handleVerify} className="rl-btn">Verify</button>
+              <button onClick={handleResend} className="rl-btn">Resend Code</button>
+              <button onClick={() => setVerifyOpen(false)} className="rl-btn">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

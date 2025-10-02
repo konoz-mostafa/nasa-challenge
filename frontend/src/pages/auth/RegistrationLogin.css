@@ -33,7 +33,7 @@
   .rl-box {
     background: rgba(20, 22, 26, 0.85);
     border-radius: 16px;
-    padding: 32px;
+    padding: 42px;
     width: 100%;
     max-width: 420px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.6);
@@ -307,4 +307,112 @@
 
 .rl-box::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #1d4ed8, #6d28d9); 
+}
+
+/* ===== Verify Modal ===== */
+.rl-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 24, 39, 0.8); /* خلفية غامقة شفافة */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+}
+
+.rl-modal-content {
+  background: rgba(31, 41, 55, 0.95);
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  text-align: center;
+  animation: rlModalFadeIn 0.3s ease;
+}
+
+.rl-modal-content h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  background: linear-gradient(to right, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.rl-modal-content p {
+  color: #d1d5db;
+  margin-bottom: 20px;
+}
+
+.rl-modal-content input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #4b5563;
+  background-color: #111827;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 18px;
+  text-align: center;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+
+.rl-modal-content input:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.4);
+}
+
+.rl-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rl-modal-actions button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s;
+}
+
+.rl-modal-actions button:nth-child(1) {
+  background: linear-gradient(to right, #2563eb, #7c3aed);
+  color: #fff;
+}
+.rl-modal-actions button:nth-child(1):hover {
+  background: linear-gradient(to right, #1d4ed8, #6d28d9);
+  transform: scale(1.05);
+}
+
+.rl-modal-actions button:nth-child(2) {
+  background: #374151;
+  color: #e5e7eb;
+}
+.rl-modal-actions button:nth-child(2):hover {
+  background: #4b5563;
+  transform: scale(1.05);
+}
+
+.rl-modal-actions button:nth-child(3) {
+  background: transparent;
+  color: #9ca3af;
+  border: 1px solid #4b5563;
+}
+.rl-modal-actions button:nth-child(3):hover {
+  background: #1f2937;
+  transform: scale(1.05);
+}
+
+/* Animation */
+@keyframes rlModalFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
