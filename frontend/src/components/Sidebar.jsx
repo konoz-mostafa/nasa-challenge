@@ -11,10 +11,7 @@ import {
 import { UserCircle } from "lucide-react";
 import { layerCategories, getLayersByCategory } from "./layers";
 import "./Sidebar.css";
-<<<<<<< HEAD
-=======
-import AddPoints from "./AddPoints"; 
->>>>>>> 26a5b27c7bf894e9d5c1dab4d3ed53b486c3bf1f
+import AddPoints from "./AddPoints";
 
 const Sidebar = ({
   activeTool,
@@ -76,12 +73,9 @@ const Sidebar = ({
       id: "profile",
       icon: <UserCircle size={24} />,
       name: "Profile",
-<<<<<<< HEAD
+
       magicSentence:
         "View your profile info and check your points, levels, and badges!",
-=======
-      magicSentence: "View your profile info and check your points, levels, and badges!",
->>>>>>> 26a5b27c7bf894e9d5c1dab4d3ed53b486c3bf1f
     },
   ];
 
@@ -359,19 +353,10 @@ const LayersTool = ({
   );
 };
 
-<<<<<<< HEAD
-// Other tool components remain the same
-const LabelTool = ({ newLabelLocation }) => {
-  const [labelName, setLabelName] = useState("");
-  const [visibility, setVisibility] = useState("private");
-=======
-
-
 const LabelTool = ({ newLabelLocation }) => {
   const [labelName, setLabelName] = useState("");
   const [visibility, setVisibility] = useState("private");
   const [pointsToAdd, setPointsToAdd] = useState(null);
->>>>>>> 26a5b27c7bf894e9d5c1dab4d3ed53b486c3bf1f
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -396,7 +381,7 @@ const LabelTool = ({ newLabelLocation }) => {
         console.log("Response from backend:", data);
         setPointsToAdd(30);
       })
- .catch((err) => console.error("Error:", err));
+      .catch((err) => console.error("Error:", err));
   };
 
   return (
@@ -417,7 +402,7 @@ const LabelTool = ({ newLabelLocation }) => {
               borderRadius: "6px",
               border: "1px solid rgba(0,169,255,0.3)",
               background: "rgba(11, 61, 145, 0.8)",
- color: "white",
+              color: "white",
             }}
           />
           <select
@@ -499,8 +484,6 @@ const DateTool = ({ date, setDate }) => (
 );
 
 export default Sidebar;
-
-
 
 // import React, { useState } from "react";
 // import {
@@ -917,7 +900,7 @@ export default Sidebar;
 //               transition: "0.3s",
 //             }}
 //             // onMouseOver={(e) => (e.currentTarget.style.opacity = 0.8)}
-//             // onMouseOut={(e) => (e.currentTarget.style.opacity = 1)}     
+//             // onMouseOut={(e) => (e.currentTarget.style.opacity = 1)}
 //           >
 //             Save Label
 //           </button>
@@ -967,4 +950,3 @@ export default Sidebar;
 // );
 
 // export default Sidebar;
->>>>>>> 26a5b27c7bf894e9d5c1dab4d3ed53b486c3bf1f
