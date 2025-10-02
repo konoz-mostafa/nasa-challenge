@@ -392,15 +392,11 @@ const LabelTool = ({ newLabelLocation }) => {
       body: JSON.stringify(labelData),
     })
       .then((res) => res.json())
-<<<<<<< HEAD
-      .then((data) => console.log("Response from backend:", data))
-=======
       .then((data) => {
         console.log("Response from backend:", data);
         setPointsToAdd(30);
       })
->>>>>>> 26a5b27c7bf894e9d5c1dab4d3ed53b486c3bf1f
-      .catch((err) => console.error("Error:", err));
+ .catch((err) => console.error("Error:", err));
   };
 
   return (
@@ -420,10 +416,8 @@ const LabelTool = ({ newLabelLocation }) => {
               padding: "6px 10px",
               borderRadius: "6px",
               border: "1px solid rgba(0,169,255,0.3)",
-
               background: "rgba(11, 61, 145, 0.8)",
->>>>>>> 26a5b27c7bf894e9d5c1dab4d3ed53b486c3bf1f
-              color: "white",
+ color: "white",
             }}
           />
           <select
@@ -433,11 +427,8 @@ const LabelTool = ({ newLabelLocation }) => {
               padding: "6px 10px",
               borderRadius: "6px",
               border: "1px solid rgba(0,169,255,0.3)",
-<<<<<<< HEAD
-              background: "rgba(0,0,0,0.1)",
-=======
+
               background: "rgba(11, 61, 145, 0.8)",
->>>>>>> 26a5b27c7bf894e9d5c1dab4d3ed53b486c3bf1f
               color: "white",
             }}
           >
@@ -469,11 +460,8 @@ const LabelTool = ({ newLabelLocation }) => {
           </p>
         )}
       </div>
-<<<<<<< HEAD
-=======
 
       {pointsToAdd && <AddPoints newPoints={pointsToAdd} />}
->>>>>>> 26a5b27c7bf894e9d5c1dab4d3ed53b486c3bf1f
     </div>
   );
 };
@@ -485,10 +473,6 @@ const StoryTool = () => (
   </div>
 );
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 26a5b27c7bf894e9d5c1dab4d3ed53b486c3bf1f
 const CompareTool = () => (
   <div className="tool-interface">
     <h3>Compare Timelines</h3>
@@ -515,8 +499,7 @@ const DateTool = ({ date, setDate }) => (
 );
 
 export default Sidebar;
-<<<<<<< HEAD
-=======
+
 
 
 // import React, { useState } from "react";
