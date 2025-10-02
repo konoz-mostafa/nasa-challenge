@@ -2,7 +2,7 @@
 import "./App.css";
 
 import WorldMap from "./components/WorldMap";
-import WelcomePage from "./pages/home/WelcomePage";
+import WelcomePage from "./pages/welcome/WelcomePage";
 import HomePage from "./pages/HomePage/HomePage";
 import RegistrationLogin from "./pages/auth/RegistrationLogin";
 import Home from './pages/home/Home'

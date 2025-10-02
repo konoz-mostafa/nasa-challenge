@@ -1,3 +1,5 @@
+
+
 // import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { Telescope, User } from "lucide-react";
@@ -6,40 +8,46 @@
 
 // const WelcomePage = () => {
 //   const navigate = useNavigate();
-//   const [guestAge, setGuestAge] = useState('');
-//   const [askAge, setAskAge] = useState(false);
+//   const [experience, setExperience] = useState('');
+//   const [askExperience, setAskExperience] = useState(false);
 //   const [isSubmitting, setIsSubmitting] = useState(false);
 
 //   const handleGuestClick = () => {
-//     setAskAge(true);
+//     setAskExperience(true);
 //   };
 
-//   const handleAgeSubmit = async () => {
-//     if (!guestAge || guestAge < 1 || guestAge > 120) {
-//       alert("Please enter a valid age");
+//   const handleExperienceSubmit = async () => {
+//     if (!experience) {
+//       alert("Please select your experience");
 //       return;
 //     }
   
 //     setIsSubmitting(true);
 //     try {
-//       const response = await fetch("https://your-backend.com/api/guest", {  //لما يجهز الصح
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ age: guestAge })
-//       });
-  
-//       if (!response.ok) {
-//         throw new Error("Failed to create guest");
-//       }
+//       const response = await fetch("http://localhost:5000/api/v1/guest/register", {
+//   method: "POST",
+//   headers: { "Content-Type": "application/json" },
+//   body: JSON.stringify({ experience })
+// });
+
+// const text = await response.text();
+// console.log("Response status:", response.status);
+// console.log("Response body:", text);
+
+// if (!response.ok) {
+//   throw new Error("Failed to create guest");
+// }
+
   
 //       const data = await response.json();
-//       // السيرفر يرجع مثلاً { guestId: "Guest22", age: 25 }
+//       // السيرفر يرجع مثلاً { guestId: "Guest22", experience: "Beginner" }
 //       console.log("Guest created:", data);
       
 //       localStorage.setItem("guestId", data.guestId);
-//       localStorage.setItem("guestAge", data.age);
+//       localStorage.setItem("guestExperience", data.experience);
   
-//       navigate("/Explora/guest");
+//       navigate("/Explora/home");
+
 //     } catch (error) {
 //       console.error(error);
 //       alert("Could not create guest. Please try again.");
@@ -54,37 +62,38 @@
 //       <div className="welcome-box">
 //         <div className="welcome-header">
 //           <Telescope className="welcome-icon" />
-//           <h1 className="welcome-title">NASA Eyes</h1>
+//           <h1 className="welcome-title">Cosmic Canvas</h1>
 //           <p className="welcome-subtitle">
 //             Explore the universe through your eyes. Contribute, learn, and be part of discovery.
 //           </p>
 //         </div>
 
-//         {askAge ? (
-//           <div className="guest-age-form">
-//             <label>Enter your age:</label>
-//             <input
-//               type="number"
-//               value={guestAge}
-//               onChange={(e) => setGuestAge(e.target.value)}
-//               placeholder="Your age"
-//               min="1"
-//               max="120"
-//             />
+//         {askExperience ? (
+//           <div className="guest-experience-form">
+//             <label>Select your experience:</label>
+//             <select
+//               value={experience}
+//               onChange={(e) => setExperience(e.target.value)}
+//             >
+//               <option value="">-- Choose an option --</option>
+//               <option value="Beginner">Beginner</option>
+//               <option value="Intermediate">Intermediate</option>
+//               <option value="Advanced">Advanced</option>
+//             </select>
 //             <button
-//               onClick={handleAgeSubmit}
+//               onClick={handleExperienceSubmit}
 //               className="btn btn-continue"
 //               disabled={isSubmitting}
 //             >
 //               {isSubmitting ? "Submitting..." : "Continue"}
 //             </button>
 //             <button
-//         onClick={() => { setAskAge(false); setGuestAge(''); }}
-//         className="btn btn-cancel"
-//         disabled={isSubmitting}
-//       >
-//         Cancel
-//       </button>
+//               onClick={() => { setAskExperience(false); setExperience(''); }}
+//               className="btn btn-cancel"
+//               disabled={isSubmitting}
+//             >
+//               Cancel
+//             </button>
 //           </div>
 //         ) : (
 //           <div className="welcome-buttons">
@@ -104,12 +113,11 @@
 
 // export default WelcomePage;
 
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Telescope, User } from "lucide-react";
 import "./WelcomePage.css";
-import Background from './Background.png'; 
+import welcomeVideo from "./welcomeved.mp4"; 
 
 const WelcomePage = () => {
   const navigate = useNavigate();
@@ -126,28 +134,26 @@ const WelcomePage = () => {
       alert("Please select your experience");
       return;
     }
-  
+
     setIsSubmitting(true);
     try {
-      const response = await fetch("https://your-backend.com/api/guest", {
+      const response = await fetch("http://localhost:5000/api/v1/guest/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ experience })
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to create guest");
       }
-  
+
       const data = await response.json();
-      // السيرفر يرجع مثلاً { guestId: "Guest22", experience: "Beginner" }
       console.log("Guest created:", data);
-      
+
       localStorage.setItem("guestId", data.guestId);
       localStorage.setItem("guestExperience", data.experience);
-  
-      navigate("/Explora/home");
 
+      navigate("/Explora/home");
     } catch (error) {
       console.error(error);
       alert("Could not create guest. Please try again.");
@@ -155,10 +161,16 @@ const WelcomePage = () => {
       setIsSubmitting(false);
     }
   };
-  
 
   return (
     <div className="welcome-page">
+      {/* Video background */}
+      <video autoPlay muted loop playsInline className="bg-video">
+        <source src={welcomeVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Overlayed content */}
       <div className="welcome-box">
         <div className="welcome-header">
           <Telescope className="welcome-icon" />

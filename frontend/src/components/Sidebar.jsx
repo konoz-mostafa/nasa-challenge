@@ -538,7 +538,7 @@ const Sidebar = ({
       id: "profile",
       icon: <UserCircle size={24} />,
       name: "Profile",
-      magicSentence: "View your profile info!",
+      magicSentence: "View your profile info and check your points, levels, and badges!",
     },
   ];
 
@@ -914,6 +914,7 @@ const StoryTool = () => (
     <p>Select a location to start your NASA story</p>
   </div>
 );
+
 
 const CompareTool = () => (
   <div className="tool-interface">

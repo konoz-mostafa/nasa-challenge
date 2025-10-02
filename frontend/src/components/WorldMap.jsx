@@ -321,7 +321,7 @@ const WorldMap = () => {
       </div>
 
       {/* NASA Logo */}
-      <div className="nasa-logo">NASA</div>
+      <div className="nasa-logo">Cosmic Canvas</div>
 
       {/* Grid Overlay */}
       <div className="map-grid" />

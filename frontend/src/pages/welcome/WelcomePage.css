@@ -1,24 +1,21 @@
 .welcome-page {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
+  overflow: hidden;
+  display: flex;              
+  justify-content: center;    
   align-items: center;
-  overflow: auto;
 }
 
-.welcome-page::before {
-  content: '';
+.bg-video {
   position: absolute;
-  top: 0; left: 0;
+  top: 0; 
+  left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('./welcomebg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: -1; 
+  object-fit: cover; 
+  z-index: -1;       
 }
 
 .welcome-box {

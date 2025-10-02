@@ -1,15 +1,33 @@
 .rl-container {
-  min-height: 100vh;
-  background: linear-gradient(to bottom right, #1e3a8a, #581c87, #000);  
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 24px;
-  color: #fff;
+  align-items: center;
 }
+
+.rl-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.rl-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
 
   
   .rl-box {
