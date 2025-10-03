@@ -471,7 +471,7 @@ const CompareTool = ({
   );
 };
 
-const LabelTool = ({ newLabelLocation }) => {
+const LabelTool = ({ newLabelLocation, imageName }) => {
   const [labelName, setLabelName] = useState("");
   const [visibility, setVisibility] = useState("private");
   const [pointsToAdd, setPointsToAdd] = useState(null);
@@ -482,11 +482,15 @@ const LabelTool = ({ newLabelLocation }) => {
       alert("Please click on the map to set a label location!");
       return;
     }
+
     const labelData = {
       name: labelName,
-      location: newLabelLocation,
+      x: newLabelLocation.lat,   
+      y: newLabelLocation.lng,   
+      imageName: imageName,      
       visibility: visibility,
     };
+
     fetch("http://localhost:5000/api/labels", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -504,51 +508,21 @@ const LabelTool = ({ newLabelLocation }) => {
     <div className="tool-interface">
       <h3>Create a Label</h3>
       <div className="label-preview">
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <input
-            type="text"
-            placeholder="Enter label name"
-            value={labelName}
-            onChange={(e) => setLabelName(e.target.value)}
-            style={{
-              padding: "6px 10px",
-              borderRadius: "6px",
-              border: "1px solid rgba(0,169,255,0.3)",
-              background: "rgba(11, 61, 145, 0.8)",
-              color: "white",
-            }}
-          />
-          <select
-            value={visibility}
-            onChange={(e) => setVisibility(e.target.value)}
-            style={{
-              padding: "6px 10px",
-              borderRadius: "6px",
-              border: "1px solid rgba(0,169,255,0.3)",
-              background: "rgba(11, 61, 145, 0.8)",
-              color: "white",
-            }}
-          >
-            <option value="private">Only me</option>
-            <option value="public">Everyone</option>
-            <option value="none">none</option>
-          </select>
-          <button
-            onClick={handleSubmit}
-            style={{
-              padding: "8px 12px",
-              borderRadius: "6px",
-              border: "none",
-              background: "linear-gradient(to right, #1e3a8a, #581c87)",
-              color: "white",
-              cursor: "pointer",
-              fontWeight: "bold",
-              transition: "0.3s",
-            }}
-          >
-            Save Label
-          </button>
-        </div>
+        <input
+          type="text"
+          placeholder="Enter label name"
+          value={labelName}
+          onChange={(e) => setLabelName(e.target.value)}
+        />
+        <select
+          value={visibility}
+          onChange={(e) => setVisibility(e.target.value)}
+        >
+          <option value="private">Only me</option>
+          <option value="public">Everyone</option>
+        </select>
+        <button onClick={handleSubmit}>Save Label</button>
+
         {newLabelLocation && (
           <p>
             Selected Location: {newLabelLocation.lat.toFixed(3)},{" "}
@@ -560,6 +534,7 @@ const LabelTool = ({ newLabelLocation }) => {
     </div>
   );
 };
+
 
 const StoryTool = () => (
   <div className="tool-interface">
