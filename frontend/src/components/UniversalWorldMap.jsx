@@ -9,6 +9,7 @@ import { GAME_QUESTIONS_MESSIER } from "../pages/Messier/MessierGame";
 import { GAME_QUESTIONS_STARBIRTH } from "../pages/StarBirth/starBirthGameQuestions";
 import StarBirthMap from "../pages/StarBirth/StarBirthMap";
 import "./WorldMap.css";
+import SearchComponent from "./SearchComponent";
 
 const UniversalWorldMap = ({ mapType = MAP_TYPES.NASA_WORLD }) => {
   const mapConfig = getMapConfig(mapType);
@@ -196,7 +197,8 @@ const UniversalWorldMap = ({ mapType = MAP_TYPES.NASA_WORLD }) => {
       <div className="map-grid" />
 
       {/* Search Bar */}
-      <div className="search-container">
+      <SearchComponent />
+      {/* <div className="search-container">
         <div className="search-bar">
           <span className="search-icon">🔍</span>
           <input
@@ -206,7 +208,8 @@ const UniversalWorldMap = ({ mapType = MAP_TYPES.NASA_WORLD }) => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-      </div>
+      </div> */}
+
 
       {/* Zoom Control */}
       {isZooming && (
