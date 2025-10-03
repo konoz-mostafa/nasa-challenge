@@ -193,14 +193,14 @@ export default function HomePage() {
       title: "Messeir Map",
       description: "Specialized regional view",
       icon: "🗺️",
-      path: "/messeir",
+      path: "/Explora/messier",
     },
     {
       id: "future",
       title: "Future Map",
       description: "Coming soon...",
       icon: "🚀",
-      path: "/future",
+      path: "/Explora/starbirth",
     },
   ];
 
