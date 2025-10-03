@@ -674,7 +674,7 @@ const LabelTool = ({ newLabelLocation, imageName }) => {
   return (
     <div className="tool-interface">
       <h3>Create a Label</h3>
-      <div className="label-preview">
+      <div className="label-preview" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         <input
           type="text"
           placeholder="Enter label name"
@@ -684,11 +684,20 @@ const LabelTool = ({ newLabelLocation, imageName }) => {
         <select
           value={visibility}
           onChange={(e) => setVisibility(e.target.value)}
+          style={{
+            padding: "6px 10px",
+            borderRadius: "6px",
+            border: "1px solid rgba(0,169,255,0.3)",
+            background: "rgba(11, 61, 145, 0.8)",
+            color: "white",
+          }}
         >
           <option value="private">Only me</option>
           <option value="public">Everyone</option>
         </select>
-        <button onClick={handleSubmit}>Save Label</button>
+       <button className="save-btn" onClick={handleSubmit}>
+  Save Label
+</button>
 
         {newLabelLocation && (
           <p>
