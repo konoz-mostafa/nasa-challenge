@@ -65,7 +65,7 @@ export default function MessierMap({ onMapClick }) {
     >
       {/* Messier Tiles from your API */}
       <TileLayer
-        url="https://664cefeaf104.ngrok-free.app/tiles/{z}/{x}/{y}.png"
+        url="https://0a69e0e57dd7.ngrok-free.app/messeir1/{z}/{x}/{y}.html"
         attribution="&copy; Messier Catalog"
         tileSize={256}
         maxNativeZoom={5}

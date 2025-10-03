@@ -72,7 +72,8 @@
 .homepage-instructions p {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 20px;
+  margin-bottom: 120px;
+  margin-top: 180px; /* increased from 80px to move it further down */
   font-family: "Orbitron", sans-serif;
 }
 

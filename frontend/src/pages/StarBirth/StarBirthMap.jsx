@@ -65,7 +65,8 @@ export default function StarBirthMap({ onMapClick }) {
     >
       {/* StarBirth Tiles from your API */}
       <TileLayer
-        url="https://664cefeaf104.ngrok-free.app/starbirth_tiles/{z}/{x}/{y}.png"
+        // url="https://664cefeaf104.ngrok-free.app/starbirth_tiles/{z}/{x}/{y}.png"
+        url="https://0a69e0e57dd7.ngrok-free.app/starbirth.html/{z}/{x}/{y}.png"
         attribution="&copy; Star Birth Regions"
         tileSize={256}
         maxNativeZoom={5}

@@ -50,30 +50,6 @@ function Particles() {
   );
 }
 
-// // Rotating Earth in Center
-function CenterEarth() {
-  const earthRef = useRef();
-
-  useFrame((state) => {
-    if (earthRef.current) {
-      earthRef.current.rotation.y = state.clock.elapsedTime * 0.1;
-    }
-  });
-
-  return (
-    <mesh ref={earthRef} position={[0, 0, -8]}>
-      <sphereGeometry args={[1.5, 64, 64]} />
-      <meshStandardMaterial
-      //         color="#0a4d8f"
-      //         emissive="#003366"
-      // emissiveIntensity={0.5}
-      // metalness={0.7}
-      // roughness={0.3}
-      />
-    </mesh>
-  );
-}
-
 // Earth Card - Spherical Design
 function EarthCard({ position, onClick, index }) {
   const [hovered, setHovered] = useState(false);
