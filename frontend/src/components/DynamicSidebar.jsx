@@ -466,7 +466,174 @@ const CompareTool = ({
           Right Map →
         </button>
       </div>
-      {/* Add similar layer selection UI as LayersTool but for compare mode */}
+      {/* Base Layers Section */}
+      <div style={{ marginBottom: "20px" }}>
+        <h4
+          style={{
+            fontSize: "14px",
+            color: "#888",
+            marginBottom: "10px",
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+          }}
+        >
+          Base Map {activeTab === "left" ? "(Left)" : "(Right)"}
+        </h4>
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          {baseLayers.map((layer) => (
+            <div
+              key={layer.id}
+              onClick={() => setCurrentBaseLayer(layer.id)}
+              style={{
+                padding: "12px",
+                borderRadius: "8px",
+                background:
+                  currentBaseLayer === layer.id
+                    ? "linear-gradient(135deg, rgba(0,169,255,0.3), rgba(88,28,135,0.3))"
+                    : "rgba(0,0,0,0.2)",
+                border:
+                  currentBaseLayer === layer.id
+                    ? "2px solid #00a9ff"
+                    : "2px solid rgba(255,255,255,0.1)",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
+              <span style={{ fontSize: "24px" }}>{layer.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                    color: "white",
+                  }}
+                >
+                  {layer.title}
+                </div>
+                <div
+                  style={{
+                    fontSize: "11px",
+                    color: "#aaa",
+                    marginTop: "2px",
+                  }}
+                >
+                  {layer.description}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Overlay Layers by Category */}
+      {Object.entries(layersByCategory).map(([category, layers]) => {
+        const categoryLayers = layers.filter((l) => l.type === "overlay");
+        if (categoryLayers.length === 0) return null;
+
+        return (
+          <div key={category} style={{ marginBottom: "20px" }}>
+            <h4
+              style={{
+                fontSize: "14px",
+                color: "#888",
+                marginBottom: "10px",
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+              }}
+            >
+              {category} {activeTab === "left" ? "(Left)" : "(Right)"}
+            </h4>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+            >
+              {categoryLayers.map((layer) => {
+                const isActive = currentOverlays.includes(layer.id);
+                return (
+                  <div
+                    key={layer.id}
+                    onClick={() => toggleOverlay(layer.id)}
+                    style={{
+                      padding: "12px",
+                      borderRadius: "8px",
+                      background: isActive
+                        ? "linear-gradient(135deg, rgba(0,169,255,0.3), rgba(88,28,135,0.3))"
+                        : "rgba(0,0,0,0.2)",
+                      border: isActive
+                        ? "2px solid #00a9ff"
+                        : "2px solid rgba(255,255,255,0.1)",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      opacity: isActive ? 1 : 0.7,
+                    }}
+                  >
+                    <span style={{ fontSize: "24px" }}>{layer.icon}</span>
+                    <div style={{ flex: 1 }}>
+                      <div
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: "14px",
+                          color: "white",
+                        }}
+                      >
+                        {layer.title}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "11px",
+                          color: "#aaa",
+                          marginTop: "2px",
+                        }}
+                      >
+                        {layer.description}
+                      </div>
+                    </div>
+                    {isActive && (
+                      <div
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "50%",
+                          background: "#00a9ff",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "white",
+                          fontSize: "12px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        ✓
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Info box */}
+      <div
+        style={{
+          marginTop: "20px",
+          padding: "12px",
+          background: "rgba(0,169,255,0.1)",
+          borderRadius: "8px",
+          border: "1px solid rgba(0,169,255,0.3)",
+          fontSize: "12px",
+          color: "#aaa",
+        }}
+      >
+        💡 <strong>Tip:</strong> Switch between left and right maps to customize
+        each side independently!
+      </div>
     </div>
   );
 };
@@ -491,7 +658,7 @@ const LabelTool = ({ newLabelLocation, imageName }) => {
       visibility: visibility,
     };
 
-    fetch("http://localhost:5000/api/labels", {
+    fetch("http://localhost:5000/api/v1/auth/labels", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(labelData),
