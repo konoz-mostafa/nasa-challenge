@@ -12,7 +12,7 @@ import { UserCircle } from "lucide-react";
 import { layerCategories, getLayersByCategory } from "./layers";
 import "./Sidebar.css";
 import AddPoints from "./AddPoints";
-
+import ProfileModal from '../pages/profile/ProfileModal'
 const DynamicSidebar = ({
   mapConfig, // NEW: Map configuration
   activeTool,
@@ -99,10 +99,10 @@ const DynamicSidebar = ({
   const tools = allTools.filter((tool) => tool.enabled);
 
   const handleIconClick = (toolId) => {
-    if (toolId === "profile") {
-      setShowProfile(true);
-      return;
-    }
+    // if (toolId === "profile") {
+    //   setShowProfile(true);
+    //   return;
+    // }
 
     if (toolId === "game") {
       onGameClick();
@@ -176,6 +176,10 @@ const DynamicSidebar = ({
             {activeTool === "date" && mapConfig.features.date && (
               <DateTool date={date} setDate={setDate} />
             )}
+            {activeTool === "profile" && (
+  <ProfileModal open={true} setOpen={() => setActiveTool(null)} />
+)}
+
           </div>
           <button className="close-drawer" onClick={() => setActiveTool(null)}>
             <FaTimes />
