@@ -7,6 +7,7 @@ import {
   FaCalendarAlt,
   FaTimes,
   FaGamepad,
+  FaRobot,
 } from "react-icons/fa";
 import { UserCircle } from "lucide-react";
 import { layerCategories, getLayersByCategory } from "./layers";
@@ -92,6 +93,13 @@ const DynamicSidebar = ({
       magicSentence:
         "View your profile info and check your points, levels, and badges!",
       enabled: mapConfig.features.profile,
+    },
+    {
+      id: "chatbot",
+      icon: <FaRobot size={24} />,
+      name: "AI Assistant",
+      magicSentence: "Ask me anything about space, astronomy, or the maps!",
+      enabled: mapConfig.features.chatbot || true, // enable by default
     },
   ];
 
