@@ -120,7 +120,7 @@ const mapId = "nasaWorldMap";
 
       <MapClickHandler />
 
-      {label && (
+      {/* {label && (
         <Marker position={label.position} icon={defaultIcon}>
           <Popup>
             {showForm ? (
@@ -158,7 +158,7 @@ const mapId = "nasaWorldMap";
             )}
           </Popup>
         </Marker>
-      )}
+      )} */}
 
       <ViewMarkers token={userToken} mapId={mapId} />
 
