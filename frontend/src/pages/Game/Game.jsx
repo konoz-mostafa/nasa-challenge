@@ -636,8 +636,8 @@ const GAME_QUESTIONS = [
     layer: "MODIS_Combined_Thermal_Anomalies_All",
     baseLayer: "MODIS_Terra_CorrectedReflectance_TrueColor",
     answers: [
-      { text: "Maui, Hawaii, USA", correct: true },
       { text: "California, USA", correct: false },
+      { text: "Maui, Hawaii, USA", correct: true },
       { text: "Amazon Rainforest, Brazil", correct: false },
       { text: "Australian Outback", correct: false },
     ],
@@ -651,10 +651,10 @@ const GAME_QUESTIONS = [
     layer: "MODIS_Terra_Snow_Cover",
     baseLayer: "MODIS_Terra_CorrectedReflectance_TrueColor",
     answers: [
-      { text: "Himalayas", correct: true },
-      { text: "Rocky Mountains", correct: false },
       { text: "Andes", correct: false },
       { text: "Alps", correct: false },
+      { text: "Himalayas", correct: true },
+      { text: "Rocky Mountains", correct: false },
     ],
     explanation: "The Himalayas, home to Mount Everest, are the highest mountain range on Earth and show extensive snow cover year-round."
   },
@@ -681,10 +681,11 @@ const GAME_QUESTIONS = [
     layer: "MODIS_Aqua_Chlorophyll_A",
     baseLayer: "MODIS_Terra_CorrectedReflectance_TrueColor",
     answers: [
-      { text: "Humboldt Current upwelling off Peru", correct: true },
       { text: "Gulf Stream warming", correct: false },
       { text: "Coral reef growth", correct: false },
       { text: "Ice shelf melting", correct: false },
+      { text: "Humboldt Current upwelling off Peru", correct: true },
+      
     ],
     explanation: "The Humboldt Current brings nutrient-rich cold water to the surface, creating one of the world's most productive marine ecosystems."
   },
@@ -711,10 +712,11 @@ const GAME_QUESTIONS = [
     layer: "MODIS_Aqua_Aerosol_Optical_Depth",
     baseLayer: "MODIS_Terra_CorrectedReflectance_TrueColor",
     answers: [
-      { text: "Delhi, India", correct: true },
-      { text: "Beijing, China", correct: false },
       { text: "Los Angeles, USA", correct: false },
       { text: "Mexico City, Mexico", correct: false },
+      { text: "Delhi, India", correct: true },
+      { text: "Beijing, China", correct: false },
+      
     ],
     explanation: "Delhi frequently experiences severe air pollution, especially during winter months when agricultural burning combines with urban emissions."
   },
@@ -726,10 +728,11 @@ const GAME_QUESTIONS = [
     layer: null,
     baseLayer: "MODIS_Terra_CorrectedReflectance_TrueColor",
     answers: [
+      { text: "Siberia", correct: false },
       { text: "Antarctica", correct: true },
       { text: "Greenland", correct: false },
       { text: "Arctic Ocean", correct: false },
-      { text: "Siberia", correct: false },
+      
     ],
     explanation: "Antarctica is Earth's southernmost continent, covered by the largest ice sheet on the planet, containing about 90% of the world's ice."
   },
@@ -741,10 +744,11 @@ const GAME_QUESTIONS = [
     layer: "MODIS_Combined_Thermal_Anomalies_All",
     baseLayer: "MODIS_Terra_CorrectedReflectance_TrueColor",
     answers: [
-      { text: "Virunga Mountains, DRC", correct: true },
       { text: "Mount Etna, Italy", correct: false },
       { text: "Kilauea, Hawaii", correct: false },
       { text: "Mount Fuji, Japan", correct: false },
+      { text: "Virunga Mountains, DRC", correct: true },
+      
     ],
     explanation: "The Virunga Mountains host several active volcanoes including Nyiragongo, which contains the world's largest lava lake."
   },
@@ -756,9 +760,9 @@ const GAME_QUESTIONS = [
     layer: null,
     baseLayer: "VIIRS_NOAA20_CorrectedReflectance_BandsM11-I2-I1",
     answers: [
-      { text: "New York City, USA", correct: true },
       { text: "London, UK", correct: false },
       { text: "Tokyo, Japan", correct: false },
+      { text: "New York City, USA", correct: true },
       { text: "Shanghai, China", correct: false },
     ],
     explanation: "New York City is one of the most densely populated urban areas in the world, creating an intense concentration of artificial light visible from space."
@@ -771,10 +775,11 @@ const GAME_QUESTIONS = [
     layer: null,
     baseLayer: "MODIS_Terra_CorrectedReflectance_Bands721",
     answers: [
+      { text: "Daintree Rainforest, Australia", correct: false },
       { text: "Amazon Rainforest, Brazil", correct: true },
       { text: "Congo Rainforest, Africa", correct: false },
       { text: "Borneo Rainforest, Indonesia", correct: false },
-      { text: "Daintree Rainforest, Australia", correct: false },
+      
     ],
     explanation: "The Amazon Rainforest is the world's largest tropical rainforest but faces significant deforestation threats from agricultural expansion."
   },
@@ -801,10 +806,11 @@ const GAME_QUESTIONS = [
     layer: "MODIS_Terra_Snow_Cover",
     baseLayer: "MODIS_Terra_CorrectedReflectance_TrueColor",
     answers: [
-      { text: "Iceland", correct: true },
       { text: "Norway", correct: false },
       { text: "Alaska", correct: false },
       { text: "Finland", correct: false },
+      { text: "Iceland", correct: true },
+      
     ],
     explanation: "Iceland sits on the Mid-Atlantic Ridge between North America and Europe, featuring numerous glaciers and active volcanic systems."
   },
@@ -816,10 +822,11 @@ const GAME_QUESTIONS = [
     layer: "MODIS_Terra_Land_Surface_Temp_Day",
     baseLayer: "MODIS_Terra_CorrectedReflectance_TrueColor",
     answers: [
+      { text: "Korean Peninsula", correct: false },
       { text: "Sinai Peninsula, Egypt", correct: true },
       { text: "Arabian Peninsula", correct: false },
       { text: "Iberian Peninsula", correct: false },
-      { text: "Korean Peninsula", correct: false },
+      
     ],
     explanation: "The Sinai Peninsula connects Africa and Asia, featuring desert landscapes with extreme daytime temperatures."
   },
@@ -831,10 +838,11 @@ const GAME_QUESTIONS = [
     layer: "MODIS_Aqua_Chlorophyll_A",
     baseLayer: "MODIS_Terra_CorrectedReflectance_TrueColor",
     answers: [
-      { text: "Gibraltar upwelling zone", correct: true },
-      { text: "Gulf Stream", correct: false },
       { text: "Kuroshio Current", correct: false },
       { text: "Benguela Current", correct: false },
+      { text: "Gibraltar upwelling zone", correct: true },
+      { text: "Gulf Stream", correct: false },
+      
     ],
     explanation: "The Strait of Gibraltar creates unique upwelling conditions where Atlantic and Mediterranean waters mix, promoting high productivity."
   },

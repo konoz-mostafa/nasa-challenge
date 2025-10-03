@@ -319,7 +319,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Telescope, UserSquare, Mail, Lock, Eye, EyeOff, Badge, Calendar } from 'lucide-react';
 import './RegistrationLogin.css';
-import logved from './logved.mp4';
+import welcomeVideo from '../welcome/welcomeved.mp4';
 import logbg from './logbg.png'; 
 
 const API_BASE = "http://localhost:5000/api/v1/auth"; 
@@ -490,10 +490,10 @@ const RegistrationLogin = () => {
 
   return (
     <div className="rl-container">
-      {/* <video autoPlay loop muted playsInline className="rl-video-bg">
-        <source src={logved} type="video/mp4" />
-      </video> */}
-      <div
+      <video autoPlay loop muted playsInline className="rl-video-bg">
+        <source src={welcomeVideo} type="video/mp4" />
+      </video>
+      {/* <div
   className="rl-bg-image"
   style={{
     backgroundImage: `url(${logbg})`,
@@ -506,7 +506,7 @@ const RegistrationLogin = () => {
     height: '100%',
     zIndex: -2,
   }}
-></div>
+></div> */}
 
 
       <div className="rl-overlay"></div>
