@@ -50,14 +50,15 @@ function ViewMarkers({ token, mapId }) {
       {markers.map((m) => (
         <Marker
           key={m.id}
-          position={[m.lat, m.lng]}
-          icon={privacyIcons[m.privacy] || privacyIcons.everyone} 
+          position={[m.x, m.y]}
+          icon={privacyIcons[m.visibility] || privacyIcons.everyone} 
         >
           <Popup>
-            Marker ID: {m.id} <br />
-            label Name:{m.labelName}<br />
-            {m.privacy}
-          </Popup>
+    <strong>{m.name}</strong> <br />
+    ID: {m.id} <br />
+    Image: {m.imageName} <br />
+    Visibility: {m.visibility}
+  </Popup>
         </Marker>
       ))}
       {/* Legend */}
