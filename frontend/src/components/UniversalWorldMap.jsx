@@ -59,7 +59,7 @@ const UniversalWorldMap = ({ mapType = MAP_TYPES.NASA_WORLD }) => {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      if (activeTool === "label") {
+      if (activeTool === "label" || activeTool === "story") {
         setCursorPosition({ x: e.clientX, y: e.clientY });
       }
     };
@@ -74,8 +74,10 @@ const UniversalWorldMap = ({ mapType = MAP_TYPES.NASA_WORLD }) => {
   const handleMapClick = (e, side = "single") => {
     if (activeTool === "label") {
       setNewLabelLocation(e.latlng);
+      setNewLabelLocation(e.latlng);
     } else if (activeTool === "story") {
       console.log("Creating story at:", e.latlng, "on", side);
+      setNewLabelLocation(e.latlng);
     }
   };
 
@@ -220,7 +222,7 @@ const UniversalWorldMap = ({ mapType = MAP_TYPES.NASA_WORLD }) => {
       )}
 
       {/* Floating cursor (+) */}
-      {activeTool === "label" && (
+      {activeTool === "label" || activeTool === "story" ? (
         <div
           className="label-cursor"
           style={{
@@ -230,7 +232,7 @@ const UniversalWorldMap = ({ mapType = MAP_TYPES.NASA_WORLD }) => {
         >
           +
         </div>
-      )}
+      ) : null}
 
       {/* Dynamic Sidebar */}
       <DynamicSidebar

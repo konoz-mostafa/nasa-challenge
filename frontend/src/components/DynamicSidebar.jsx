@@ -12,7 +12,7 @@ import { UserCircle } from "lucide-react";
 import { layerCategories, getLayersByCategory } from "./layers";
 import "./Sidebar.css";
 import AddPoints from "./AddPoints";
-import ProfileModal from '../pages/profile/ProfileModal'
+import ProfileModal from "../pages/profile/ProfileModal";
 const DynamicSidebar = ({
   mapConfig, // NEW: Map configuration
   activeTool,
@@ -160,7 +160,12 @@ const DynamicSidebar = ({
             {activeTool === "label" && (
               <LabelTool newLabelLocation={newLabelLocation} />
             )}
-            {activeTool === "story" && <StoryTool />}
+            {activeTool === "story" && (
+              <StoryTool
+                newLabelLocation={newLabelLocation}
+                onStoryLoad={() => setActiveTool(null)}
+              />
+            )}
             {activeTool === "compare" && mapConfig.features.compare && (
               <CompareTool
                 leftBaseLayer={leftBaseLayer}
@@ -177,9 +182,8 @@ const DynamicSidebar = ({
               <DateTool date={date} setDate={setDate} />
             )}
             {activeTool === "profile" && (
-  <ProfileModal open={true} setOpen={() => setActiveTool(null)} />
-)}
-
+              <ProfileModal open={true} setOpen={() => setActiveTool(null)} />
+            )}
           </div>
           <button className="close-drawer" onClick={() => setActiveTool(null)}>
             <FaTimes />
@@ -656,9 +660,9 @@ const LabelTool = ({ newLabelLocation, imageName }) => {
 
     const labelData = {
       name: labelName,
-      x: newLabelLocation.lat,   
-      y: newLabelLocation.lng,   
-      imageName: imageName,      
+      x: newLabelLocation.lat,
+      y: newLabelLocation.lng,
+      imageName: imageName,
       visibility: visibility,
     };
 
@@ -678,7 +682,10 @@ const LabelTool = ({ newLabelLocation, imageName }) => {
   return (
     <div className="tool-interface">
       <h3>Create a Label</h3>
-      <div className="label-preview" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div
+        className="label-preview"
+        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+      >
         <input
           type="text"
           placeholder="Enter label name"
@@ -699,9 +706,9 @@ const LabelTool = ({ newLabelLocation, imageName }) => {
           <option value="private">Only me</option>
           <option value="public">Everyone</option>
         </select>
-       <button className="save-btn" onClick={handleSubmit}>
-  Save Label
-</button>
+        <button className="save-btn" onClick={handleSubmit}>
+          Save Label
+        </button>
 
         {newLabelLocation && (
           <p>
@@ -715,13 +722,179 @@ const LabelTool = ({ newLabelLocation, imageName }) => {
   );
 };
 
+const StoryTool = ({ newLabelLocation, onStoryLoad }) => {
+  const [loading, setLoading] = useState(false);
+  const [storyInfo, setStoryInfo] = useState(null);
+  const [error, setError] = useState(null);
 
-const StoryTool = () => (
-  <div className="tool-interface">
-    <h3>Create a Story</h3>
-    <p>Select a location to start your story</p>
-  </div>
-);
+  const fetchLocationInfo = async () => {
+    if (!newLabelLocation) {
+      setError("Please click on the map to select a location first.");
+      setStoryInfo(null);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setStoryInfo(null);
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/v1/ai/location-info",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            lat: newLabelLocation.lat,
+            lng: newLabelLocation.lng,
+          }),
+        }
+      );
+      // Inside StoryTool, add after fetching
+      if (storyInfo) {
+        // Optionally, close drawer after success
+        onStoryLoad(); // You can pass this from parent
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setStoryInfo(data); // Expect { title, description, facts, image, source }
+    } catch (err) {
+      console.error("Failed to fetch AI story:", err);
+      setError("Failed to fetch location information. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Auto-fetch when location changes
+  React.useEffect(() => {
+    if (newLabelLocation) {
+      fetchLocationInfo();
+    }
+  }, [newLabelLocation]);
+
+  return (
+    <div
+      className="tool-interface"
+      style={{ maxHeight: "70vh", overflowY: "auto" }}
+    >
+      <h3>Create a Story</h3>
+
+      {!newLabelLocation ? (
+        <div style={{ textAlign: "center", padding: "30px", color: "#aaa" }}>
+          <p>🌍 Click on the map to select a location.</p>
+          <p>Then, we’ll generate a story about it using AI.</p>
+        </div>
+      ) : loading ? (
+        <div style={{ textAlign: "center", padding: "30px" }}>
+          <p>✨ Generating story from AI...</p>
+        </div>
+      ) : error ? (
+        <div
+          style={{
+            color: "#ff6b6b",
+            padding: "15px",
+            backgroundColor: "rgba(255, 107, 107, 0.1)",
+            borderRadius: "8px",
+          }}
+        >
+          {error}
+        </div>
+      ) : storyInfo ? (
+        <div style={{ marginBottom: "20px", lineHeight: "1.6" }}>
+          {storyInfo.image && (
+            <div style={{ textAlign: "center", marginBottom: "15px" }}>
+              <img
+                src={storyInfo.image}
+                alt={storyInfo.title}
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+                }}
+              />
+            </div>
+          )}
+          <h4 style={{ color: "#00a9ff", marginTop: "0" }}>
+            {storyInfo.title}
+          </h4>
+          <p style={{ marginBottom: "15px", fontSize: "15px" }}>
+            {storyInfo.description}
+          </p>
+
+          {storyInfo.facts && (
+            <div
+              style={{
+                borderLeft: "4px solid #00a9ff",
+                paddingLeft: "15px",
+                margin: "20px 0",
+              }}
+            >
+              <strong>Extra Facts:</strong>
+              <ul style={{ marginTop: "10px" }}>
+                {storyInfo.facts.map((fact, index) => (
+                  <li
+                    key={index}
+                    style={{ marginBottom: "5px", color: "#ddd" }}
+                  >
+                    {fact}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {storyInfo.source && (
+            <p
+              style={{
+                fontSize: "12px",
+                color: "#888",
+                fontStyle: "italic",
+                marginTop: "20px",
+              }}
+            >
+              Source: {storyInfo.source}
+            </p>
+          )}
+        </div>
+      ) : (
+        <div style={{ textAlign: "center", padding: "30px", color: "#aaa" }}>
+          <p>AI content will appear here once you select a location.</p>
+          <button
+            onClick={fetchLocationInfo}
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "#00a9ff",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: "bold",
+              marginTop: "10px",
+            }}
+          >
+            Generate Story
+          </button>
+
+          {newLabelLocation && (
+            <p>
+              Selected Location: {newLabelLocation.lat.toFixed(3)},{" "}
+              {newLabelLocation.lng.toFixed(3)}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const DateTool = ({ date, setDate }) => (
   <div className="tool-interface">
