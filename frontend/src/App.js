@@ -11,6 +11,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* <Route path="/HomePage" element={<HomePage />} /> */}
         <Route path="/Explora" element={<WelcomePage />} />
         <Route path="/Explora/login" element={<RegistrationLogin />} />
         <Route path="/Explora/home" element={<HomePage />} />
@@ -31,7 +32,6 @@ function App() {
           path="/Explora/starbirth"
           element={<UniversalWorldMap mapType={MAP_TYPES.STARBIRTH} />}
         />
-
       </Routes>
     </Router>
   );

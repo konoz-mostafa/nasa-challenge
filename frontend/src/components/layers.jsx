@@ -12,6 +12,18 @@ export const layerCategories = [
     icon: "🌍",
   },
   {
+    id: "VIIRS_CityLights_2012",
+    title: "Earth at Night ",
+    matrixSet: "GoogleMapsCompatible_Level8",
+    format: "jpeg", // jpeg is often used in GIBS, but jpg works too
+    type: "base",
+    description:
+      "A composite map of city lights from 2012, also known as 'The Black Marble'.",
+    opacity: 1.0,
+    category: "Base Maps",
+    icon: "🌙",
+  },
+  {
     id: "VIIRS_NOAA20_CorrectedReflectance_TrueColor",
     title: "VIIRS True Color (NOAA-20)",
     matrixSet: "GoogleMapsCompatible_Level9",
