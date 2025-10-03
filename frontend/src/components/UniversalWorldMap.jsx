@@ -1,14 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
-import Sidebar from "./Sidebar";
+import DynamicSidebar from "./DynamicSidebar";
 import NasaWorldMap from "./NasaWorldMap";
+import MessierMap from "../pages/Messier/MessierMap";
 import ProfileModal from "../pages/profile/ProfileModal";
 import Game from "../pages/Game/Game";
+import { getMapConfig, MAP_TYPES } from "./mapConfigs";
+import { GAME_QUESTIONS_MESSIER } from "../pages/Messier/MessierGame";
+import { GAME_QUESTIONS_STARBIRTH } from "../pages/StarBirth/starBirthGameQuestions";
+import StarBirthMap from "../pages/StarBirth/StarBirthMap";
 import "./WorldMap.css";
 
-const WorldMap = () => {
+const UniversalWorldMap = ({ mapType = MAP_TYPES.NASA_WORLD }) => {
+  const mapConfig = getMapConfig(mapType);
+
   const [activeTool, setActiveTool] = useState(null);
   const [isZooming, setIsZooming] = useState(false);
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(
+    mapConfig.defaultDate || new Date().toISOString().split("T")[0]
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const mapRef = useRef(null);
   const [newLabelLocation, setNewLabelLocation] = useState(null);
@@ -16,7 +25,7 @@ const WorldMap = () => {
 
   // Layer state management for single map
   const [activeBaseLayer, setActiveBaseLayer] = useState(
-    "MODIS_Terra_CorrectedReflectance_TrueColor"
+    mapConfig.defaultBaseLayer
   );
   const [activeOverlays, setActiveOverlays] = useState([]);
 
@@ -26,18 +35,19 @@ const WorldMap = () => {
   );
   const [dateRight, setDateRight] = useState("2020-09-22");
 
-  // Compare mode layer states - NEW!
+  // Compare mode layer states
   const [leftBaseLayer, setLeftBaseLayer] = useState(
-    "MODIS_Terra_CorrectedReflectance_TrueColor"
+    mapConfig.defaultBaseLayer
   );
   const [leftOverlays, setLeftOverlays] = useState([]);
   const [rightBaseLayer, setRightBaseLayer] = useState(
-    "MODIS_Terra_CorrectedReflectance_TrueColor"
+    mapConfig.defaultBaseLayer
   );
   const [rightOverlays, setRightOverlays] = useState([]);
 
   const [showProfile, setShowProfile] = useState(false);
   const [showGame, setShowGame] = useState(false);
+  const [gameQuestions, setGameQuestions] = useState(null);
 
   useEffect(() => {
     let zoomTimeout;
@@ -70,61 +80,92 @@ const WorldMap = () => {
   };
 
   const handleGameClick = () => {
+    // Load appropriate game questions based on map type
+    if (mapType === MAP_TYPES.MESSIER) {
+      setGameQuestions(GAME_QUESTIONS_MESSIER);
+    } else if (mapType === MAP_TYPES.STARBIRTH) {
+      setGameQuestions(GAME_QUESTIONS_STARBIRTH);
+    }
+    // For NASA map, the Game component will use its default questions
     setShowGame(true);
     setActiveTool(null);
   };
 
   const handleGameClose = () => {
     setShowGame(false);
+    setGameQuestions(null);
   };
+
+  // Select the appropriate map component
+  const getMapComponent = () => {
+    switch (mapType) {
+      case MAP_TYPES.MESSIER:
+        return MessierMap;
+      case MAP_TYPES.STARBIRTH:
+        return StarBirthMap;
+      default:
+        return NasaWorldMap;
+    }
+  };
+  const MapComponent = getMapComponent();
 
   // If game is active, show only the game
   if (showGame) {
-    return <Game onClose={handleGameClose} />;
+    return (
+      <Game
+        onClose={handleGameClose}
+        questions={gameQuestions}
+        mapType={mapType}
+      />
+    );
   }
 
   return (
     <div className="world-view-container">
       {/* MAP AREA */}
       <div className="map-area">
-        {activeTool === "compare" ? (
+        {activeTool === "compare" && mapConfig.features.compare ? (
           <div className="compare-mode-container">
             <div className="compare-map-wrapper left-map">
-              <NasaWorldMap
+              <MapComponent
                 key="left"
                 date={dateLeft}
                 onMapClick={(e) => handleMapClick(e, "left")}
                 activeBaseLayer={leftBaseLayer}
                 activeOverlays={leftOverlays}
               />
-              <div className="compare-date-picker">
-                <label>Left Map Date:</label>
-                <input
-                  type="date"
-                  value={dateLeft}
-                  onChange={(e) => setDateLeft(e.target.value)}
-                />
-              </div>
+              {mapConfig.features.date && (
+                <div className="compare-date-picker">
+                  <label>Left Map Date:</label>
+                  <input
+                    type="date"
+                    value={dateLeft}
+                    onChange={(e) => setDateLeft(e.target.value)}
+                  />
+                </div>
+              )}
             </div>
 
             <div className="compare-divider" />
 
             <div className="compare-map-wrapper right-map">
-              <NasaWorldMap
+              <MapComponent
                 key="right"
                 date={dateRight}
                 onMapClick={(e) => handleMapClick(e, "right")}
                 activeBaseLayer={rightBaseLayer}
                 activeOverlays={rightOverlays}
               />
-              <div className="compare-date-picker">
-                <label>Right Map Date:</label>
-                <input
-                  type="date"
-                  value={dateRight}
-                  onChange={(e) => setDateRight(e.target.value)}
-                />
-              </div>
+              {mapConfig.features.date && (
+                <div className="compare-date-picker">
+                  <label>Right Map Date:</label>
+                  <input
+                    type="date"
+                    value={dateRight}
+                    onChange={(e) => setDateRight(e.target.value)}
+                  />
+                </div>
+              )}
             </div>
 
             <button
@@ -136,7 +177,7 @@ const WorldMap = () => {
             </button>
           </div>
         ) : (
-          <NasaWorldMap
+          <MapComponent
             key="single"
             date={date}
             onMapClick={(e) => handleMapClick(e, "single")}
@@ -146,8 +187,8 @@ const WorldMap = () => {
         )}
       </div>
 
-      {/* NASA Logo */}
-      <div className="nasa-logo">Cosmic Canvas</div>
+      {/* Logo */}
+      <div className="nasa-logo">{mapConfig.name}</div>
 
       {/* Grid Overlay */}
       <div className="map-grid" />
@@ -191,8 +232,9 @@ const WorldMap = () => {
         </div>
       )}
 
-      {/* Sidebar */}
-      <Sidebar
+      {/* Dynamic Sidebar */}
+      <DynamicSidebar
+        mapConfig={mapConfig}
         activeTool={activeTool}
         setActiveTool={setActiveTool}
         newLabelLocation={newLabelLocation}
@@ -218,4 +260,4 @@ const WorldMap = () => {
   );
 };
 
-export default WorldMap;
+export default UniversalWorldMap;
