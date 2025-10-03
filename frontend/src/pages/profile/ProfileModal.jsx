@@ -347,7 +347,7 @@ const ProfileModal = ({ open, setOpen }) => {
 
   return (
     <>
-      <div className="profile-window" style={{ maxHeight: "70vh", overflowY: "auto" }}>
+      <div className="profile-window" style={{ maxHeight: "60vh", overflowY: "auto" }}>
         <div className="profile-header">
           <h3>{userData.username || " Profile"}</h3>
           {/* <button className="close-btn" onClick={() => setOpen(false)}>×</button> */}
