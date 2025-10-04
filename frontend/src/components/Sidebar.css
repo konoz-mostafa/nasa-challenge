@@ -1,7 +1,6 @@
 /* Sidebar container */
 .sidebar-container {
   position: relative;
-  /* display: none; */
 }
 
 /* Sidebar dock styling */
@@ -15,14 +14,12 @@
     rgba(11, 61, 145, 0.8) 0%,
     rgba(23, 26, 68, 0.9) 100%
   );
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 169, 255, 0.3);
-  border-radius: 30px;
+  border-radius: 22px;
   padding: 12px 10px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 20px 5px #a78bfa;
   z-index: 1000;
 }
 
@@ -41,23 +38,20 @@
   color: #cccccc;
   background: rgba(11, 61, 145, 0.3);
   cursor: pointer;
-  border-radius: 50%;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 18px;
+  transition: background 0.2s, transform 0.2s;
   border: 1px solid rgba(0, 169, 255, 0.2);
 }
 
 .sidebar-icon:hover {
   background: linear-gradient(135deg, #0b3d91 0%, #6e21fc 100%);
   color: #ffffff;
-  transform: scale(1.15);
-  box-shadow: 0 0 15px 3px rgba(0, 169, 255, 0.6),
-    inset 0 0 10px 2px rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
 }
 
 .sidebar-icon.active {
   background: linear-gradient(135deg, #6e21fc 0%, #0b3d91 100%);
   color: #ffffff;
-  box-shadow: 0 0 20px 5px #a78bfa, inset 0 0 15px 3px rgba(255, 255, 255, 0.4);
 }
 
 .magic-card {
@@ -71,15 +65,13 @@
     rgba(23, 26, 68, 0.95) 100%
   );
   border: 1px solid rgba(0, 169, 255, 0.4);
-  border-radius: 15px;
-  box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.5), 0 0 15px 3px #a78bfa;
+  border-radius: 12px;
   width: 280px;
   opacity: 0;
   transform: translateY(-50%) translateX(10px);
-  animation: cardFadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation: cardFadeIn 0.3s ease forwards;
   pointer-events: none;
   z-index: -1;
-  backdrop-filter: blur(10px);
 }
 
 .magic-card::after {
@@ -108,7 +100,6 @@
   margin: 0 0 10px 0;
   color: #ffffff;
   line-height: 1.6;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .tool-name {
@@ -130,12 +121,10 @@
   right: 98px;
   transform: translateY(-50%);
   background: rgba(23, 26, 68, 0.95);
-  backdrop-filter: blur(15px);
   border: 1px solid rgba(0, 169, 255, 0.3);
-  border-radius: 15px;
+  border-radius: 12px;
   padding: 20px;
   width: 300px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   z-index: 999;
 }
 
@@ -190,13 +179,12 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .layer-card:hover {
   background: rgba(0, 169, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .layer-icon {
@@ -234,7 +222,7 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .story-sample:hover {
@@ -304,172 +292,7 @@
   }
 }
 
-.sidebar-dock {
-  position: fixed;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  background: linear-gradient(
-    135deg,
-    rgba(11, 61, 145, 0.8) 0%,
-    rgba(23, 26, 68, 0.9) 100%
-  );
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 169, 255, 0.3);
-  border-radius: 30px;
-  padding: 15px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 20px 5px #a78bfa;
-  z-index: 1000;
-}
-
-.icon-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.sidebar-icon {
-  width: 55px;
-  height: 55px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--text-secondary);
-  background: rgba(11, 61, 145, 0.3);
-  cursor: pointer;
-  border-radius: 50%;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  border: 1px solid rgba(0, 169, 255, 0.2);
-}
-
-.sidebar-icon:hover {
-  background: linear-gradient(
-    135deg,
-    var(--nasa-blue) 0%,
-    var(--nasa-red) 100%
-  );
-  color: var(--text-primary);
-  transform: scale(1.15);
-  box-shadow: 0 0 15px 3px rgba(0, 169, 255, 0.6),
-    inset 0 0 10px 2px rgba(255, 255, 255, 0.3);
-}
-
-.sidebar-icon.active {
-  background: linear-gradient(
-    135deg,
-    var(--nasa-red) 0%,
-    var(--nasa-blue) 100%
-  );
-  color: var(--text-primary);
-  box-shadow: 0 0 20px 5px #a78bfa, inset 0 0 15px 3px rgba(255, 255, 255, 0.4);
-}
-
-.magic-card {
-  position: absolute;
-  right: calc(100% + 15px);
-  top: 50%;
-  padding: 20px;
-  background: linear-gradient(
-    135deg,
-    rgba(11, 61, 145, 0.95) 0%,
-    rgba(23, 26, 68, 0.95) 100%
-  );
-  border: 1px solid rgba(0, 169, 255, 0.4);
-  border-radius: 15px;
-  box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.5), 0 0 15px 3px #a78bfa;
-  width: 280px;
-  opacity: 0;
-  transform: translateY(-50%) translateX(10px);
-  animation: cardFadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-  pointer-events: none;
-  z-index: -1;
-  backdrop-filter: blur(10px);
-}
-
-.magic-card::after {
-  content: "";
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid rgba(11, 61, 145, 0.95);
-}
-
-@keyframes cardFadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
-  }
-}
-
-.magic-sentence {
-  font-size: 16px;
-  font-weight: 400;
-  margin: 0 0 10px 0;
-  color: var(--text-primary);
-  line-height: 1.6;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-}
-
-.tool-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--accent-glow);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 3px 8px;
-  background: rgba(128, 33, 252, 0.5);
-  border-radius: 4px;
-}
-
-.sidebar-dock::before {
-  /* content: "NASA"; */
-  position: absolute;
-  top: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--nasa-red);
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 3px 10px;
-  border-radius: 10px;
-  letter-spacing: 1px;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .sidebar-dock {
-    right: 10px;
-    padding: 10px 5px;
-    gap: 15px;
-  }
-
-  .sidebar-icon {
-    width: 45px;
-    height: 45px;
-  }
-
-  .magic-card {
-    width: 220px;
-    padding: 15px;
-  }
-
-  .magic-sentence {
-    font-size: 14px;
-  }
-}
-
 /* Add these new styles to your existing Sidebar.css */
-
 .tool-interface {
   padding: 15px;
   color: #e0e0e0;
@@ -482,7 +305,7 @@
 }
 
 .layer-groups {
-  max-height: calc(100vh - 150px); /* Adjust based on your layout */
+  max-height: calc(100vh - 150px);
   overflow-y: auto;
 }
 
@@ -492,7 +315,7 @@
 
 .layer-group h4 {
   margin-bottom: 10px;
-  color: #a0cfff; /* A nice highlight color */
+  color: #a0cfff;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -511,7 +334,6 @@
 
 .layer-item input[type="checkbox"] {
   margin-right: 10px;
-  /* Simple custom checkbox style */
   appearance: none;
   background-color: #333;
   border: 1px solid #555;
@@ -569,7 +391,6 @@
   max-height: 180px;
   overflow-y: auto;
   border: 1px solid #3b82f6;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* Labels */
@@ -607,57 +428,13 @@
   border-radius: 3px;
 }
 
-/* Add this to your existing Sidebar.css file */
-
 /* Game Icon Special Styling */
 .game-icon {
   position: relative;
-  animation: gameGlow 2s ease-in-out infinite;
-}
-
-.game-icon::before {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  background: linear-gradient(45deg, #00a9ff, #581c87, #00a9ff);
-  background-size: 400% 400%;
-  border-radius: 50%;
-  opacity: 0;
-  animation: gameIconPulse 3s ease-in-out infinite;
-  z-index: -1;
-}
-
-@keyframes gameGlow {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 5px rgba(0, 169, 255, 0.5));
-  }
-  50% {
-    filter: drop-shadow(0 0 15px rgba(88, 28, 135, 0.8));
-  }
-}
-
-@keyframes gameIconPulse {
-  0%,
-  100% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(1.2);
-  }
 }
 
 .sidebar-icon.game-icon:hover {
-  transform: scale(1.2) rotate(5deg);
-}
-
-.sidebar-icon.game-icon:hover::before {
-  animation: gameIconPulse 1s ease-in-out infinite;
+  transform: scale(1.1);
 }
 
 /* تخصيص الاسكرولار في layers */
@@ -666,7 +443,7 @@
 }
 
 .tool-interface::-webkit-scrollbar-track {
-  background: rgba(31, 41, 55, 0.8); /* غامق */
+  background: rgba(31, 41, 55, 0.8);
   border-radius: 8px;
 }
 
@@ -688,20 +465,88 @@
   color: white;
   cursor: pointer;
   font-weight: 700;
-  transition: transform 120ms ease, box-shadow 120ms ease;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  transform: translateY(0);
+  transition: transform 120ms ease;
 }
 
-/* hover effect */
 .save-btn:hover {
+  background: #6d28d9;
   transform: translateY(-2px);
-  box-shadow: 0 10px 16px rgba(0, 0, 0, 0.25);
 }
 
-/* show pressed state */
 .save-btn:active {
   transform: translateY(2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
   opacity: 0.95;
+}
+
+/* Responsive Enhancements (Vertical Sidebar stays) */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .sidebar-dock {
+    right: 12px;
+    padding: 10px 8px;
+  }
+
+  .sidebar-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .smart-drawer {
+    width: 260px;
+    right: 80px;
+    padding: 16px;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 768px) {
+  .sidebar-dock {
+    right: 8px;
+    padding: 8px 6px;
+    gap: 10px;
+  }
+
+  .sidebar-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .magic-card {
+    width: 220px;
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .smart-drawer {
+    right: 70px;
+    width: 240px;
+    padding: 14px;
+  }
+}
+
+/* Small Mobiles */
+@media (max-width: 480px) {
+  .sidebar-dock {
+    right: 5px;
+    padding: 6px 5px;
+    gap: 8px;
+  }
+
+  .sidebar-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .magic-card {
+    width: 200px;
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .smart-drawer {
+    width: 210px;
+    padding: 12px;
+  }
 }
