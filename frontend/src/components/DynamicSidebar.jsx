@@ -14,6 +14,8 @@ import { layerCategories, getLayersByCategory } from "./layers";
 import "./Sidebar.css";
 import AddPoints from "./AddPoints";
 import ProfileModal from "../pages/profile/ProfileModal";
+import Chatbot from "./Chatbot";
+
 const DynamicSidebar = ({
   mapConfig, // NEW: Map configuration
   activeTool,
@@ -192,6 +194,7 @@ const DynamicSidebar = ({
             {activeTool === "profile" && (
               <ProfileModal open={true} setOpen={() => setActiveTool(null)} />
             )}
+            {activeTool === "chatbot" && <Chatbot />}
           </div>
           <button className="close-drawer" onClick={() => setActiveTool(null)}>
             <FaTimes />
